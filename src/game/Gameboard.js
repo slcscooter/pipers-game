@@ -30,56 +30,110 @@ export function Gameboard() {
     setPlayer2Score(0);
     setDiceScore1(0);
     setTurnScore(0);
+    setHeldDice2(false);
+    setDiceValue2("Roll");
+    setRolled2(false);
+    setImageSource2(rollImage);
+    setAltSource2("Dice 2 value is Roll");
+    setDiceScore2(0);
   }
 
   /**
    * Dice Actions
    */
 
+  // Dice 1
   const [heldDice1, setHeldDice1] = useState(false);
   const [diceValue1, setDiceValue1] = useState("Roll");
   const [rolled1, setRolled1] = useState(false);
-  const [imageSource1, setImageSource1] = useState(rollImage);
+  const [imageSource1, setImageSource1] = useState(rollImage1);
   const [altSource1, setAltSource1] = useState("Dice 1 value is Roll");
   const [diceScore1, setDiceScore1] = useState(diceValue1);
 
-  function handleHoldDice() {
+  function handleHoldDice1() {
     setHeldDice1(true);
   }
 
-  function handleUnHoldDice() {
+  function handleUnHoldDice1() {
     setHeldDice1(false);
   }
 
-  function handleRoll() {
-    function getRandomInt(max) {
-      return Math.floor(Math.random() * max);
+  function handleRoll1() {
+    function getRandomInt(max1) {
+      return Math.floor(Math.random() * max1);
     }
-    const roll = getRandomInt(6) + 1;
+    const roll1 = getRandomInt(6) + 1;
 
-    function srcGen(roll) {
-      if (roll === "Roll") {
+    function srcGen(roll1) {
+      if (roll1 === "Roll") {
         return rollImage;
-      } else if (roll === 6) {
+      } else if (roll1 === 6) {
         return rollImage6;
-      } else if (roll === 5) {
+      } else if (roll1 === 5) {
         return rollImage5;
-      } else if (roll === 4) {
+      } else if (roll1 === 4) {
         return rollImage4;
-      } else if (roll === 3) {
+      } else if (roll1 === 3) {
         return rollImage3;
-      } else if (roll === 2) {
+      } else if (roll1 === 2) {
         return rollImage2;
-      } else if (roll === 1) {
+      } else if (roll1 === 1) {
         return rollImage1;
       }
     }
-    const src = srcGen(roll);
+    const src1 = srcGen(roll1);
 
-    setDiceValue1(roll);
+    setDiceValue1(roll1);
     setRolled1(true);
-    setAltSource1(`Dice 1 value is ${roll}`);
-    setImageSource1(src);
+    setAltSource1(`Dice 1 value is ${roll1}`);
+    setImageSource1(src1);
+  }
+
+  // Dice 2
+  const [heldDice2, setHeldDice2] = useState(false);
+  const [diceValue2, setDiceValue2] = useState("Roll");
+  const [rolled2, setRolled2] = useState(false);
+  const [imageSource2, setImageSource2] = useState(rollImage1);
+  const [altSource2, setAltSource2] = useState("Dice 2 value is Roll");
+  const [diceScore2, setDiceScore2] = useState(diceValue2);
+
+  function handleHoldDice2() {
+    setHeldDice2(true);
+  }
+
+  function handleUnHoldDice2() {
+    setHeldDice2(false);
+  }
+
+  function handleRoll2() {
+    function getRandomInt(max2) {
+      return Math.floor(Math.random() * max2);
+    }
+    const roll2 = getRandomInt(6) + 1;
+
+    function srcGen(roll) {
+      if (roll2 === "Roll") {
+        return rollImage;
+      } else if (roll2 === 6) {
+        return rollImage6;
+      } else if (roll2 === 5) {
+        return rollImage5;
+      } else if (roll2 === 4) {
+        return rollImage4;
+      } else if (roll2 === 3) {
+        return rollImage3;
+      } else if (roll2 === 2) {
+        return rollImage2;
+      } else if (roll2 === 1) {
+        return rollImage1;
+      }
+    }
+    const src2 = srcGen(roll2);
+
+    setDiceValue2(roll2);
+    setRolled2(true);
+    setAltSource2(`Dice 2 value is ${roll2}`);
+    setImageSource2(src2);
   }
 
   /**
@@ -117,6 +171,12 @@ export function Gameboard() {
     setImageSource1(rollImage);
     setAltSource1("Dice 1 value is Roll");
     setDiceScore1(0);
+    setRolled2(false);
+    setHeldDice2(false);
+    setDiceValue2("Roll");
+    setImageSource2(rollImage);
+    setAltSource2("Dice 2 value is Roll");
+    setDiceScore2(0);
   }
 
   function handleEndTurn() {
@@ -140,6 +200,12 @@ export function Gameboard() {
     setImageSource1(rollImage);
     setAltSource1("Dice value is Roll");
     setDiceScore1(0);
+    setRolled2(false);
+    setHeldDice2(false);
+    setDiceValue2("Roll");
+    setImageSource2(rollImage);
+    setAltSource2("Dice value is Roll");
+    setDiceScore2(0);
     setTurnScore(0);
   }
 
@@ -168,7 +234,9 @@ export function Gameboard() {
           <div className="dice-actions">
             <button
               className="dice-action btn btn-outline"
-              onClick={heldDice1 === false ? handleHoldDice : handleUnHoldDice}
+              onClick={
+                heldDice1 === false ? handleHoldDice1 : handleUnHoldDice1
+              }
               hidden={diceValue1 === "Roll"}
               disabled={lockDice === true}
             >
@@ -176,8 +244,30 @@ export function Gameboard() {
             </button>
             <button
               className="dice-action btn btn-outline"
-              onClick={handleRoll}
+              onClick={handleRoll1}
               disabled={heldDice1 || rolled1}
+            >
+              Roll
+            </button>
+          </div>
+          <div id="dice-2" className="dice">
+            <img className="dice-image" src={imageSource2} alt={altSource2} />
+          </div>
+          <div className="dice-actions">
+            <button
+              className="dice-action btn btn-outline"
+              onClick={
+                heldDice2 === false ? handleHoldDice2 : handleUnHoldDice2
+              }
+              hidden={diceValue2 === "Roll"}
+              disabled={lockDice === true}
+            >
+              {heldDice2 === false ? "Hold" : "Unhold"}
+            </button>
+            <button
+              className="dice-action btn btn-outline"
+              onClick={handleRoll2}
+              disabled={heldDice2 || rolled2}
             >
               Roll
             </button>
