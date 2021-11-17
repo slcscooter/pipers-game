@@ -36,6 +36,30 @@ export function Gameboard() {
     setImageSource2(rollImage);
     setAltSource2("Dice 2 value is Roll");
     setDiceScore2(0);
+    setHeldDice3(false);
+    setDiceValue3("Roll");
+    setRolled3(false);
+    setImageSource3(rollImage);
+    setAltSource3("Dice 3 value is Roll");
+    setDiceScore3(0);
+    setHeldDice4(false);
+    setDiceValue4("Roll");
+    setRolled4(false);
+    setImageSource4(rollImage);
+    setAltSource4("Dice 4 value is Roll");
+    setDiceScore4(0);
+    setHeldDice5(false);
+    setDiceValue5("Roll");
+    setRolled5(false);
+    setImageSource5(rollImage);
+    setAltSource5("Dice 5 value is Roll");
+    setDiceScore5(0);
+    setHeldDice6(false);
+    setDiceValue6("Roll");
+    setRolled6(false);
+    setImageSource6(rollImage);
+    setAltSource6("Dice 6 value is Roll");
+    setDiceScore6(0);
   }
 
   /**
@@ -46,7 +70,7 @@ export function Gameboard() {
   const [heldDice1, setHeldDice1] = useState(false);
   const [diceValue1, setDiceValue1] = useState("Roll");
   const [rolled1, setRolled1] = useState(false);
-  const [imageSource1, setImageSource1] = useState(rollImage1);
+  const [imageSource1, setImageSource1] = useState(rollImage);
   const [altSource1, setAltSource1] = useState("Dice 1 value is Roll");
   const [diceScore1, setDiceScore1] = useState(diceValue1);
 
@@ -93,7 +117,7 @@ export function Gameboard() {
   const [heldDice2, setHeldDice2] = useState(false);
   const [diceValue2, setDiceValue2] = useState("Roll");
   const [rolled2, setRolled2] = useState(false);
-  const [imageSource2, setImageSource2] = useState(rollImage1);
+  const [imageSource2, setImageSource2] = useState(rollImage);
   const [altSource2, setAltSource2] = useState("Dice 2 value is Roll");
   const [diceScore2, setDiceScore2] = useState(diceValue2);
 
@@ -134,6 +158,194 @@ export function Gameboard() {
     setRolled2(true);
     setAltSource2(`Dice 2 value is ${roll2}`);
     setImageSource2(src2);
+  }
+
+  // Dice 3
+  const [heldDice3, setHeldDice3] = useState(false);
+  const [diceValue3, setDiceValue3] = useState("Roll");
+  const [rolled3, setRolled3] = useState(false);
+  const [imageSource3, setImageSource3] = useState(rollImage);
+  const [altSource3, setAltSource3] = useState("Dice 3 value is Roll");
+  const [diceScore3, setDiceScore3] = useState(diceValue3);
+
+  function handleHoldDice3() {
+    setHeldDice3(true);
+  }
+
+  function handleUnHoldDice3() {
+    setHeldDice3(false);
+  }
+
+  function handleRoll3() {
+    function getRandomInt(max3) {
+      return Math.floor(Math.random() * max3);
+    }
+    const roll3 = getRandomInt(6) + 1;
+
+    function srcGen(roll3) {
+      if (roll3 === "Roll") {
+        return rollImage;
+      } else if (roll3 === 6) {
+        return rollImage6;
+      } else if (roll3 === 5) {
+        return rollImage5;
+      } else if (roll3 === 4) {
+        return rollImage4;
+      } else if (roll3 === 3) {
+        return rollImage3;
+      } else if (roll3 === 2) {
+        return rollImage3;
+      } else if (roll3 === 1) {
+        return rollImage1;
+      }
+    }
+    const src3 = srcGen(roll3);
+
+    setDiceValue3(roll3);
+    setRolled3(true);
+    setAltSource3(`Dice 3 value is ${roll3}`);
+    setImageSource3(src3);
+  }
+
+  // Dice 4
+  const [heldDice4, setHeldDice4] = useState(false);
+  const [diceValue4, setDiceValue4] = useState("Roll");
+  const [rolled4, setRolled4] = useState(false);
+  const [imageSource4, setImageSource4] = useState(rollImage);
+  const [altSource4, setAltSource4] = useState("Dice 4 value is Roll");
+  const [diceScore4, setDiceScore4] = useState(diceValue4);
+
+  function handleHoldDice4() {
+    setHeldDice4(true);
+  }
+
+  function handleUnHoldDice4() {
+    setHeldDice4(false);
+  }
+
+  function handleRoll4() {
+    function getRandomInt(max4) {
+      return Math.floor(Math.random() * max4);
+    }
+    const roll4 = getRandomInt(6) + 1;
+
+    function srcGen(roll4) {
+      if (roll4 === "Roll") {
+        return rollImage;
+      } else if (roll4 === 6) {
+        return rollImage6;
+      } else if (roll4 === 5) {
+        return rollImage5;
+      } else if (roll4 === 4) {
+        return rollImage4;
+      } else if (roll4 === 3) {
+        return rollImage3;
+      } else if (roll4 === 2) {
+        return rollImage2;
+      } else if (roll4 === 1) {
+        return rollImage1;
+      }
+    }
+    const src4 = srcGen(roll4);
+
+    setDiceValue4(roll4);
+    setRolled4(true);
+    setAltSource4(`Dice 4 value is ${roll4}`);
+    setImageSource4(src4);
+  }
+
+  // Dice 5
+  const [heldDice5, setHeldDice5] = useState(false);
+  const [diceValue5, setDiceValue5] = useState("Roll");
+  const [rolled5, setRolled5] = useState(false);
+  const [imageSource5, setImageSource5] = useState(rollImage);
+  const [altSource5, setAltSource5] = useState("Dice 5 value is Roll");
+  const [diceScore5, setDiceScore5] = useState(diceValue5);
+
+  function handleHoldDice5() {
+    setHeldDice5(true);
+  }
+
+  function handleUnHoldDice5() {
+    setHeldDice5(false);
+  }
+
+  function handleRoll5() {
+    function getRandomInt(max5) {
+      return Math.floor(Math.random() * max5);
+    }
+    const roll5 = getRandomInt(6) + 1;
+
+    function srcGen(roll5) {
+      if (roll5 === "Roll") {
+        return rollImage;
+      } else if (roll5 === 6) {
+        return rollImage6;
+      } else if (roll5 === 5) {
+        return rollImage5;
+      } else if (roll5 === 4) {
+        return rollImage4;
+      } else if (roll5 === 3) {
+        return rollImage3;
+      } else if (roll5 === 2) {
+        return rollImage2;
+      } else if (roll5 === 1) {
+        return rollImage1;
+      }
+    }
+    const src5 = srcGen(roll5);
+
+    setDiceValue5(roll5);
+    setRolled5(true);
+    setAltSource5(`Dice 5 value is ${roll5}`);
+    setImageSource5(src5);
+  }
+
+  // Dice 6
+  const [heldDice6, setHeldDice6] = useState(false);
+  const [diceValue6, setDiceValue6] = useState("Roll");
+  const [rolled6, setRolled6] = useState(false);
+  const [imageSource6, setImageSource6] = useState(rollImage);
+  const [altSource6, setAltSource6] = useState("Dice 6 value is Roll");
+  const [diceScore6, setDiceScore6] = useState(diceValue6);
+
+  function handleHoldDice6() {
+    setHeldDice6(true);
+  }
+
+  function handleUnHoldDice6() {
+    setHeldDice6(false);
+  }
+
+  function handleRoll6() {
+    function getRandomInt(max6) {
+      return Math.floor(Math.random() * max6);
+    }
+    const roll6 = getRandomInt(6) + 1;
+
+    function srcGen(roll6) {
+      if (roll6 === "Roll") {
+        return rollImage;
+      } else if (roll6 === 6) {
+        return rollImage6;
+      } else if (roll6 === 5) {
+        return rollImage5;
+      } else if (roll6 === 4) {
+        return rollImage4;
+      } else if (roll6 === 3) {
+        return rollImage3;
+      } else if (roll6 === 2) {
+        return rollImage3;
+      } else if (roll6 === 1) {
+        return rollImage1;
+      }
+    }
+    const src6 = srcGen(roll6);
+
+    setDiceValue6(roll6);
+    setRolled6(true);
+    setAltSource6(`Dice 6 value is ${roll6}`);
+    setImageSource6(src6);
   }
 
   /**
@@ -177,6 +389,30 @@ export function Gameboard() {
     setImageSource2(rollImage);
     setAltSource2("Dice 2 value is Roll");
     setDiceScore2(0);
+    setRolled3(false);
+    setHeldDice3(false);
+    setDiceValue3("Roll");
+    setImageSource3(rollImage);
+    setAltSource3("Dice 3 value is Roll");
+    setDiceScore3(0);
+    setRolled4(false);
+    setHeldDice4(false);
+    setDiceValue4("Roll");
+    setImageSource4(rollImage);
+    setAltSource4("Dice 4 value is Roll");
+    setDiceScore4(0);
+    setRolled5(false);
+    setHeldDice5(false);
+    setDiceValue5("Roll");
+    setImageSource5(rollImage);
+    setAltSource5("Dice 5 value is Roll");
+    setDiceScore5(0);
+    setRolled6(false);
+    setHeldDice6(false);
+    setDiceValue6("Roll");
+    setImageSource6(rollImage);
+    setAltSource6("Dice 6 value is Roll");
+    setDiceScore6(0);
   }
 
   function handleEndTurn() {
@@ -198,14 +434,38 @@ export function Gameboard() {
     setHeldDice1(false);
     setDiceValue1("Roll");
     setImageSource1(rollImage);
-    setAltSource1("Dice value is Roll");
+    setAltSource1("Dice 1 value is Roll");
     setDiceScore1(0);
     setRolled2(false);
     setHeldDice2(false);
     setDiceValue2("Roll");
     setImageSource2(rollImage);
-    setAltSource2("Dice value is Roll");
+    setAltSource2("Dice 2 value is Roll");
     setDiceScore2(0);
+    setRolled3(false);
+    setHeldDice3(false);
+    setDiceValue3("Roll");
+    setImageSource3(rollImage);
+    setAltSource3("Dice 3 value is Roll");
+    setDiceScore3(0);
+    setRolled4(false);
+    setHeldDice4(false);
+    setDiceValue4("Roll");
+    setImageSource4(rollImage);
+    setAltSource4("Dice 4 value is Roll");
+    setDiceScore4(0);
+    setRolled5(false);
+    setHeldDice5(false);
+    setDiceValue5("Roll");
+    setImageSource5(rollImage);
+    setAltSource5("Dice 5 value is Roll");
+    setDiceScore5(0);
+    setRolled6(false);
+    setHeldDice6(false);
+    setDiceValue6("Roll");
+    setImageSource6(rollImage);
+    setAltSource6("Dice 6 value is Roll");
+    setDiceScore6(0);
     setTurnScore(0);
   }
 
@@ -227,7 +487,7 @@ export function Gameboard() {
         </button>
       </div>
       <div className="gameboard-container">
-        <div className="dice-container">
+        <div id="dice-container-1" className="dice-container">
           <div id="dice-1" className="dice">
             <img className="dice-image" src={imageSource1} alt={altSource1} />
           </div>
@@ -268,6 +528,96 @@ export function Gameboard() {
               className="dice-action btn btn-outline"
               onClick={handleRoll2}
               disabled={heldDice2 || rolled2}
+            >
+              Roll
+            </button>
+          </div>
+          <div id="dice-3" className="dice">
+            <img className="dice-image" src={imageSource3} alt={altSource3} />
+          </div>
+          <div className="dice-actions">
+            <button
+              className="dice-action btn btn-outline"
+              onClick={
+                heldDice3 === false ? handleHoldDice3 : handleUnHoldDice3
+              }
+              hidden={diceValue3 === "Roll"}
+              disabled={lockDice === true}
+            >
+              {heldDice3 === false ? "Hold" : "Unhold"}
+            </button>
+            <button
+              className="dice-action btn btn-outline"
+              onClick={handleRoll3}
+              disabled={heldDice3 || rolled3}
+            >
+              Roll
+            </button>
+          </div>
+        </div>
+        <div id="dice-container-2" className="dice-container">
+          <div id="dice-4" className="dice">
+            <img className="dice-image" src={imageSource4} alt={altSource4} />
+          </div>
+          <div className="dice-actions">
+            <button
+              className="dice-action btn btn-outline"
+              onClick={
+                heldDice4 === false ? handleHoldDice4 : handleUnHoldDice4
+              }
+              hidden={diceValue4 === "Roll"}
+              disabled={lockDice === true}
+            >
+              {heldDice4 === false ? "Hold" : "Unhold"}
+            </button>
+            <button
+              className="dice-action btn btn-outline"
+              onClick={handleRoll4}
+              disabled={heldDice4 || rolled4}
+            >
+              Roll
+            </button>
+          </div>
+          <div id="dice-5" className="dice">
+            <img className="dice-image" src={imageSource5} alt={altSource5} />
+          </div>
+          <div className="dice-actions">
+            <button
+              className="dice-action btn btn-outline"
+              onClick={
+                heldDice5 === false ? handleHoldDice5 : handleUnHoldDice5
+              }
+              hidden={diceValue5 === "Roll"}
+              disabled={lockDice === true}
+            >
+              {heldDice5 === false ? "Hold" : "Unhold"}
+            </button>
+            <button
+              className="dice-action btn btn-outline"
+              onClick={handleRoll5}
+              disabled={heldDice5 || rolled5}
+            >
+              Roll
+            </button>
+          </div>
+          <div id="dice-6" className="dice">
+            <img className="dice-image" src={imageSource6} alt={altSource6} />
+          </div>
+          <div className="dice-actions">
+            <button
+              className="dice-action btn btn-outline"
+              onClick={
+                heldDice6 === false ? handleHoldDice6 : handleUnHoldDice6
+              }
+              hidden={diceValue6 === "Roll"}
+              disabled={lockDice === true}
+            >
+              {heldDice6 === false ? "Hold" : "Unhold"}
+            </button>
+            <button
+              className="dice-action btn btn-outline"
+              onClick={handleRoll6}
+              disabled={heldDice6 || rolled6}
             >
               Roll
             </button>
