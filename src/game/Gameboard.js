@@ -360,12 +360,8 @@ export function Gameboard() {
   const [turnScore, setTurnScore] = useState(0);
 
   function handleLockDice() {
-    if (rollCount === 3) {
-      setLockDice(true);
-    } else {
-      setLockDice(true);
-      setNextRollLocked(false);
-    }
+    setLockDice(true);
+    setNextRollLocked(false);
   }
 
   function handleUnlockDice() {
@@ -477,173 +473,190 @@ export function Gameboard() {
   const [player2Score, setPlayer2Score] = useState(0);
 
   return (
-    <div className="game">
+    <div id="game" class="flex space-y-4 flex-col">
       <div className="game-level-controls">
         <button
-          className="game-action btn btn-outline"
+          id="reset-game-button"
+          class="bg-white text-black text-xs rounded-md"
           onClick={handleResetGame}
         >
           Reset Game
         </button>
       </div>
-      <div className="gameboard-container">
-        <div id="dice-container-1" className="dice-container">
-          <div id="dice-1" className="dice">
+      <div id="gameboard-container" class="flex space-y-4 flex-col">
+        <div id="dice-container-1" class="flex space-x-4 flex-row">
+          <div id="dice-1" class="flex space-y-4 flex-col">
             <img className="dice-image" src={imageSource1} alt={altSource1} />
-          </div>
-          <div className="dice-actions">
-            <button
-              className="dice-action btn btn-outline"
-              onClick={
-                heldDice1 === false ? handleHoldDice1 : handleUnHoldDice1
-              }
-              hidden={diceValue1 === "Roll"}
-              disabled={lockDice === true}
+            <div
+              className="dice-actions-container-1"
+              class="flex space-x-4 flex-row"
             >
-              {heldDice1 === false ? "Hold" : "Unhold"}
-            </button>
-            <button
-              className="dice-action btn btn-outline"
-              onClick={handleRoll1}
-              disabled={heldDice1 || rolled1}
-            >
-              Roll
-            </button>
+              <button
+                id="dice-1-hold-button"
+                class="bg-white text-black text-md rounded-md"
+                onClick={
+                  heldDice1 === false ? handleHoldDice1 : handleUnHoldDice1
+                }
+                hidden={diceValue1 === "Roll"}
+                disabled={lockDice === true}
+              >
+                {heldDice1 === false ? "Hold" : "Unhold"}
+              </button>
+              <button
+                id="dice-1-roll-button"
+                class="bg-white text-black text-md rounded-md"
+                onClick={handleRoll1}
+                disabled={heldDice1 || rolled1}
+              >
+                Roll
+              </button>
+            </div>
           </div>
-          <div id="dice-2" className="dice">
+          <div id="dice-2" class="flex space-y-4 flex-col">
             <img className="dice-image" src={imageSource2} alt={altSource2} />
+            <div id="dice-actions-container-2" class="flex space-x-4 flex-row">
+              <button
+                id="dice-2-hold-button"
+                class="bg-white text-black text-md rounded-md"
+                onClick={
+                  heldDice2 === false ? handleHoldDice2 : handleUnHoldDice2
+                }
+                hidden={diceValue2 === "Roll"}
+                disabled={lockDice === true}
+              >
+                {heldDice2 === false ? "Hold" : "Unhold"}
+              </button>
+              <button
+                id="dice-2-roll-button"
+                class="bg-white text-black text-md rounded-md"
+                onClick={handleRoll2}
+                disabled={heldDice2 || rolled2}
+              >
+                Roll
+              </button>
+            </div>
           </div>
-          <div className="dice-actions">
-            <button
-              className="dice-action btn btn-outline"
-              onClick={
-                heldDice2 === false ? handleHoldDice2 : handleUnHoldDice2
-              }
-              hidden={diceValue2 === "Roll"}
-              disabled={lockDice === true}
-            >
-              {heldDice2 === false ? "Hold" : "Unhold"}
-            </button>
-            <button
-              className="dice-action btn btn-outline"
-              onClick={handleRoll2}
-              disabled={heldDice2 || rolled2}
-            >
-              Roll
-            </button>
-          </div>
-          <div id="dice-3" className="dice">
+          <div id="dice-3" class="flex space-y-4 flex-col">
             <img className="dice-image" src={imageSource3} alt={altSource3} />
-          </div>
-          <div className="dice-actions">
-            <button
-              className="dice-action btn btn-outline"
-              onClick={
-                heldDice3 === false ? handleHoldDice3 : handleUnHoldDice3
-              }
-              hidden={diceValue3 === "Roll"}
-              disabled={lockDice === true}
-            >
-              {heldDice3 === false ? "Hold" : "Unhold"}
-            </button>
-            <button
-              className="dice-action btn btn-outline"
-              onClick={handleRoll3}
-              disabled={heldDice3 || rolled3}
-            >
-              Roll
-            </button>
+            <div id="dice-actions-container-3" class="flex space-x-4 flex-row">
+              <button
+                id="dice-3-hold-button"
+                class="bg-white text-black text-md rounded-md"
+                onClick={
+                  heldDice3 === false ? handleHoldDice3 : handleUnHoldDice3
+                }
+                hidden={diceValue3 === "Roll"}
+                disabled={lockDice === true}
+              >
+                {heldDice3 === false ? "Hold" : "Unhold"}
+              </button>
+              <button
+                id="dice-3-roll-button"
+                class="bg-white text-black text-md rounded-md"
+                onClick={handleRoll3}
+                disabled={heldDice3 || rolled3}
+              >
+                Roll
+              </button>
+            </div>
           </div>
         </div>
-        <div id="dice-container-2" className="dice-container">
-          <div id="dice-4" className="dice">
+        <div id="dice-container-2" class="flex space-x-4 flex-row">
+          <div id="dice-4" class="flex space-y-4 flex-col">
             <img className="dice-image" src={imageSource4} alt={altSource4} />
+            <div id="dice-actions-container-4" class="flex space-x-4 flex-row">
+              <button
+                id="dice-4-hold-button"
+                class="bg-white text-black text-md rounded-md"
+                onClick={
+                  heldDice4 === false ? handleHoldDice4 : handleUnHoldDice4
+                }
+                hidden={diceValue4 === "Roll"}
+                disabled={lockDice === true}
+              >
+                {heldDice4 === false ? "Hold" : "Unhold"}
+              </button>
+              <button
+                id="dice-4-roll-button"
+                class="bg-white text-black text-md rounded-md"
+                onClick={handleRoll4}
+                disabled={heldDice4 || rolled4}
+              >
+                Roll
+              </button>
+            </div>
           </div>
-          <div className="dice-actions">
-            <button
-              className="dice-action btn btn-outline"
-              onClick={
-                heldDice4 === false ? handleHoldDice4 : handleUnHoldDice4
-              }
-              hidden={diceValue4 === "Roll"}
-              disabled={lockDice === true}
-            >
-              {heldDice4 === false ? "Hold" : "Unhold"}
-            </button>
-            <button
-              className="dice-action btn btn-outline"
-              onClick={handleRoll4}
-              disabled={heldDice4 || rolled4}
-            >
-              Roll
-            </button>
-          </div>
-          <div id="dice-5" className="dice">
+          <div id="dice-5" class="flex space-y-4 flex-col">
             <img className="dice-image" src={imageSource5} alt={altSource5} />
+            <div id="dice-actions-container-5" class="flex space-x-4 flex-row">
+              <button
+                id="dice-5-hold-button"
+                class="bg-white text-black text-md rounded-md"
+                onClick={
+                  heldDice5 === false ? handleHoldDice5 : handleUnHoldDice5
+                }
+                hidden={diceValue5 === "Roll"}
+                disabled={lockDice === true}
+              >
+                {heldDice5 === false ? "Hold" : "Unhold"}
+              </button>
+              <button
+                id="dice-5-roll-button"
+                class="bg-white text-black text-md rounded-md"
+                onClick={handleRoll5}
+                disabled={heldDice5 || rolled5}
+              >
+                Roll
+              </button>
+            </div>
           </div>
-          <div className="dice-actions">
-            <button
-              className="dice-action btn btn-outline"
-              onClick={
-                heldDice5 === false ? handleHoldDice5 : handleUnHoldDice5
-              }
-              hidden={diceValue5 === "Roll"}
-              disabled={lockDice === true}
-            >
-              {heldDice5 === false ? "Hold" : "Unhold"}
-            </button>
-            <button
-              className="dice-action btn btn-outline"
-              onClick={handleRoll5}
-              disabled={heldDice5 || rolled5}
-            >
-              Roll
-            </button>
-          </div>
-          <div id="dice-6" className="dice">
+          <div id="dice-6" class="flex space-y-4 flex-col">
             <img className="dice-image" src={imageSource6} alt={altSource6} />
-          </div>
-          <div className="dice-actions">
-            <button
-              className="dice-action btn btn-outline"
-              onClick={
-                heldDice6 === false ? handleHoldDice6 : handleUnHoldDice6
-              }
-              hidden={diceValue6 === "Roll"}
-              disabled={lockDice === true}
-            >
-              {heldDice6 === false ? "Hold" : "Unhold"}
-            </button>
-            <button
-              className="dice-action btn btn-outline"
-              onClick={handleRoll6}
-              disabled={heldDice6 || rolled6}
-            >
-              Roll
-            </button>
+            <div id="dice-actions-container-6" class="flex space-x-4 flex-row">
+              <button
+                id="dice-6-hold-button"
+                class="bg-white text-black text-md rounded-md"
+                onClick={
+                  heldDice6 === false ? handleHoldDice6 : handleUnHoldDice6
+                }
+                hidden={diceValue6 === "Roll"}
+                disabled={lockDice === true}
+              >
+                {heldDice6 === false ? "Hold" : "Unhold"}
+              </button>
+              <button
+                id="dice-6-roll-button"
+                class="bg-white text-black text-md rounded-md"
+                onClick={handleRoll6}
+                disabled={heldDice6 || rolled6}
+              >
+                Roll
+              </button>
+            </div>
           </div>
         </div>
         <div className="turn-actions-container">
-          <p className="roll-count-text">Roll Count: {rollCount}</p>
-          <p className="player=turn-text">
-            Player: {player}, Turn: {turnCount}
+          <p className="turn-player-roll-text">
+            Turn: {turnCount}, Player: {player}, Roll: {rollCount}
           </p>
           <button
-            className="turn-action btn btn-outline"
+            id="lock-dice-button"
+            class="bg-white text-black text-sm rounded-md"
             onClick={lockDice === false ? handleLockDice : handleUnlockDice}
-            disabled={heldDice1 === false}
           >
             {lockDice === false ? "Lock Dice" : "Unlock Dice"}
           </button>
           <button
-            className="turn-action btn btn-outline"
-            disabled={nextRollLocked}
+            id="next-roll-button"
+            class="bg-white text-black text-sm rounded-md"
             onClick={handleNextRoll}
+            disabled={nextRollLocked}
           >
             Next Roll
           </button>
           <button
-            className="turn-action btn btn-outline"
+            id="end-turn-button"
+            class="bg-white text-black text-sm rounded-md"
             onClick={handleEndTurn}
             disabled={lockDice === false}
           >
@@ -654,7 +667,6 @@ export function Gameboard() {
           <p className="game-score-text">Player 1 Score: {player1Score}</p>
           <p className="game-score-text">Player 2 Score: {player2Score}</p>
         </div>
-        Gameboard container
       </div>
     </div>
   );
