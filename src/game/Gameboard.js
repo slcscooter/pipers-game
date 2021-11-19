@@ -469,6 +469,44 @@ export function Gameboard() {
     }
   }
 
+  function handleBankRoll() {
+    setLockDice(false);
+    setNextRollLocked(true);
+    setRollCount(rollCount + 1);
+    setTurnScore(turnScore + rollScore);
+    setHeldDiceCount(currentHeldDiceCount());
+    setRolled1(false);
+    setDiceValue1("Roll");
+    setImageSource1(rollImage);
+    setAltSource1("Dice 1 value is Roll");
+    setDiceScore1(0);
+    setRolled2(false);
+    setDiceValue2("Roll");
+    setImageSource2(rollImage);
+    setAltSource2("Dice 2 value is Roll");
+    setDiceScore2(0);
+    setRolled3(false);
+    setDiceValue3("Roll");
+    setImageSource3(rollImage);
+    setAltSource3("Dice 3 value is Roll");
+    setDiceScore3(0);
+    setRolled4(false);
+    setDiceValue4("Roll");
+    setImageSource4(rollImage);
+    setAltSource4("Dice 4 value is Roll");
+    setDiceScore4(0);
+    setRolled5(false);
+    setDiceValue5("Roll");
+    setImageSource5(rollImage);
+    setAltSource5("Dice 5 value is Roll");
+    setDiceScore5(0);
+    setRolled6(false);
+    setDiceValue6("Roll");
+    setImageSource6(rollImage);
+    setAltSource6("Dice 6 value is Roll");
+    setDiceScore6(0);
+  }
+
   function handleEndTurn() {
     if (player === "Player 1") {
       setPlayer("Player 2");
@@ -478,6 +516,67 @@ export function Gameboard() {
     if (player === "Player 2") {
       setPlayer("Player 1");
       setPlayer2Score(player2Score + turnScore);
+      setTurnCount(turnCount + 1);
+    }
+
+    setLockDice(false);
+    setNextRollLocked(true);
+    setRollCount(1);
+    setRolled1(false);
+    setHeldDice1(false);
+    setDiceValue1("Roll");
+    setHeldDiceRoll1(undefined);
+    setImageSource1(rollImage);
+    setAltSource1("Dice 1 value is Roll");
+    setDiceScore1(0);
+    setRolled2(false);
+    setHeldDice2(false);
+    setDiceValue2("Roll");
+    setHeldDiceRoll2(undefined);
+    setImageSource2(rollImage);
+    setAltSource2("Dice 2 value is Roll");
+    setDiceScore2(0);
+    setRolled3(false);
+    setHeldDice3(false);
+    setDiceValue3("Roll");
+    setHeldDiceRoll3(undefined);
+    setImageSource3(rollImage);
+    setAltSource3("Dice 3 value is Roll");
+    setDiceScore3(0);
+    setRolled4(false);
+    setHeldDice4(false);
+    setDiceValue4("Roll");
+    setHeldDiceRoll4(undefined);
+    setImageSource4(rollImage);
+    setAltSource4("Dice 4 value is Roll");
+    setDiceScore4(0);
+    setRolled5(false);
+    setHeldDice5(false);
+    setDiceValue5("Roll");
+    setHeldDiceRoll5(undefined);
+    setImageSource5(rollImage);
+    setAltSource5("Dice 5 value is Roll");
+    setDiceScore5(0);
+    setRolled6(false);
+    setHeldDice6(false);
+    setDiceValue6("Roll");
+    setHeldDiceRoll6(undefined);
+    setImageSource6(rollImage);
+    setAltSource6("Dice 6 value is Roll");
+    setDiceScore6(0);
+    setTurnScore(0);
+    setHeldDiceCount(0);
+  }
+
+  function handleFarkle() {
+    if (player === "Player 1") {
+      setPlayer("Player 2");
+      setPlayer1Score(player1Score + 0);
+    }
+
+    if (player === "Player 2") {
+      setPlayer("Player 1");
+      setPlayer2Score(player2Score + 0);
       setTurnCount(turnCount + 1);
     }
 
@@ -571,59 +670,337 @@ export function Gameboard() {
   const rollScore = scoreMap();
 
   function scoreMap() {
-    let [a, b, c, d, e, f] = bankedDiceList;
+    let bankedDiceCount = bankedDiceList.length;
 
-    if (
-      (a === 6 && b === 6 && c === 6 && d === 6 && e === 6 && f === 6) ||
-      (a === 5 && b === 5 && c === 5 && d === 5 && e === 5 && f === 5) ||
-      (a === 4 && b === 4 && c === 4 && d === 4 && e === 4 && f === 4) ||
-      (a === 3 && b === 3 && c === 3 && d === 3 && e === 3 && f === 3) ||
-      (a === 2 && b === 2 && c === 2 && d === 2 && e === 2 && f === 2) ||
-      (a === 1 && b === 1 && c === 1 && d === 1 && e === 1 && f === 1)
-    ) {
-      return 3000;
+    // dx is the number of x rolled
+    const d1 = bankedDiceList.filter((x) => x === 1).length;
+    const d2 = bankedDiceList.filter((x) => x === 2).length;
+    const d3 = bankedDiceList.filter((x) => x === 3).length;
+    const d4 = bankedDiceList.filter((x) => x === 4).length;
+    const d5 = bankedDiceList.filter((x) => x === 5).length;
+    const d6 = bankedDiceList.filter((x) => x === 6).length;
+
+    if (bankedDiceCount === 6) {
+      // [x,x,x,x,x,x] = 3000 (example: [4,4,4,4,4,4] = 3000)
+      if (
+        d1 === 6 ||
+        d2 === 6 ||
+        d3 === 6 ||
+        d4 === 6 ||
+        d5 === 6 ||
+        d6 === 6
+      ) {
+        return 3000;
+      }
+
+      // [1,2,3,4,5,6] = 1500 (example: [3,6,2,4,5,1] = 1500)
+      if (
+        d1 === 1 &&
+        d2 === 1 &&
+        d3 === 1 &&
+        d4 === 1 &&
+        d5 === 1 &&
+        d6 === 1
+      ) {
+        return 1500;
+      }
+
+      // [x,x,y,y,z,z] = 1500 (example: [3,1,4,4,1,3] = 1500)
+      if (
+        (d1 === 2 ||
+          d2 === 2 ||
+          d3 === 2 ||
+          d4 === 2 ||
+          d5 === 2 ||
+          d6 === 2) &&
+        (d1 === 2 ||
+          d2 === 2 ||
+          d3 === 2 ||
+          d4 === 2 ||
+          d5 === 2 ||
+          d6 === 2) &&
+        (d1 === 2 || d2 === 2 || d3 === 2 || d4 === 2 || d5 === 2 || d6 === 2)
+      ) {
+        return 1500;
+      }
+
+      // [x,x,y,y,y,y] = 1500 (example: [4,4,4,4,1,1] = 1500)
+      if (
+        (d1 === 2 ||
+          d2 === 2 ||
+          d3 === 2 ||
+          d4 === 2 ||
+          d5 === 2 ||
+          d6 === 2) &&
+        (d1 === 4 || d2 === 4 || d3 === 4 || d4 === 4 || d5 === 4 || d6 === 4)
+      ) {
+        return 1500;
+      }
+
+      // [x,x,x,y,y,y] = 2500 (example: [4,4,4,1,1,1] = 2500)
+      if (
+        (d1 === 3 ||
+          d2 === 3 ||
+          d3 === 2 ||
+          d4 === 3 ||
+          d5 === 3 ||
+          d6 === 3) &&
+        (d1 === 3 || d2 === 3 || d3 === 3 || d4 === 3 || d5 === 3 || d6 === 3)
+      ) {
+        return 2500;
+      }
+
+      // [x,x,x,x,x,1] = 2100 (example: [6,6,6,6,1,6] = 2100) note that x !== 1
+      if (
+        (d2 === 5 || d3 === 5 || d4 === 5 || d5 === 5 || d6 === 5) &&
+        d1 === 1
+      ) {
+        return 2100;
+      }
+
+      // [x,x,x,x,x,5] = 2050 (example: [6,6,6,6,5,6] = 2050) note that x !== 5
+      if (
+        (d1 === 5 || d2 === 5 || d3 === 5 || d4 === 5 || d6 === 5) &&
+        d5 === 1
+      ) {
+        return 2050;
+      }
+
+      // [x,x,x,x,1,5] = 1150 (example: [6,1,6,6,5,6] = 1150) note that x !== 5 && x !== 1
+      if (
+        (d2 === 4 || d3 === 4 || d4 === 4 || d6 === 4) &&
+        d1 === 1 &&
+        d5 === 1
+      ) {
+        return 1150;
+      }
     }
-    if (a === b && b === c && a === c) {
-      if (a === 1) {
+
+    if (bankedDiceCount === 5) {
+      // [x,x,x,x,x] = 2000 (example: [6,6,6,6,3,6] = 2000)
+      if (
+        d1 === 5 ||
+        d2 === 5 ||
+        d3 === 5 ||
+        d4 === 5 ||
+        d5 === 5 ||
+        d6 === 5
+      ) {
+        return 2000;
+      }
+
+      // [x,x,x,x,1] = 1100 (example: [6,6,6,1,6] = 1100) note that x !== 1
+      if (
+        (d2 === 5 || d3 === 5 || d4 === 5 || d5 === 5 || d6 === 5) &&
+        d1 === 1
+      ) {
+        return 1100;
+      }
+
+      // [x,x,x,x,5] = 1050 (example: [6,6,6,5,6] = 1050) note that x !== 5
+      if (
+        (d1 === 5 || d2 === 5 || d3 === 5 || d4 === 5 || d6 === 5) &&
+        d5 === 1
+      ) {
+        return 1050;
+      }
+
+      // [x,x,x,1,1] = [xxx] + 200 (example: [2,2,2,1,1] = 200 + 100 = 300) note x !== 1
+      if (
+        (d2 === 3 || d3 === 3 || d4 === 3 || d5 === 3 || d6 === 3) &&
+        d1 === 2
+      ) {
+        if (d2 === 3) {
+          return 400;
+        }
+        if (d3 === 3) {
+          return 500;
+        }
+        if (d4 === 3) {
+          return 600;
+        }
+        if (d5 === 3) {
+          return 700;
+        }
+        if (d6 === 3) {
+          return 800;
+        }
+      }
+
+      // [x,x,x,1,5] = [xxx] + 150 (example: [2,2,2,1] = 200 + 150 = 350) note x !== 1 && x !== 5
+      if (
+        (d2 === 3 || d3 === 3 || d4 === 3 || d6 === 3) &&
+        d1 === 1 &&
+        d5 === 5
+      ) {
+        if (d2 === 3) {
+          return 350;
+        }
+        if (d3 === 3) {
+          return 450;
+        }
+        if (d4 === 3) {
+          return 550;
+        }
+        if (d6 === 3) {
+          return 750;
+        }
+      }
+
+      // [x,x,x,5,5] = [xxx] + 200 (example: [2,2,2,5,5] = 200 + 100 = 300) note x !== 1
+      if (
+        (d1 === 3 || d2 === 3 || d3 === 3 || d4 === 3 || d6 === 3) &&
+        d5 === 2
+      ) {
+        if (d1 === 3) {
+          return 400;
+        }
+        if (d2 === 3) {
+          return 300;
+        }
+        if (d3 === 3) {
+          return 400;
+        }
+        if (d4 === 3) {
+          return 500;
+        }
+        if (d6 === 3) {
+          return 700;
+        }
+      }
+    }
+
+    if (bankedDiceCount === 4) {
+      // [x,x,x,x] = 1000 (example: [2,2,4,2,5,2] = 1000)
+      if (
+        d1 === 4 ||
+        d2 === 4 ||
+        d3 === 4 ||
+        d4 === 4 ||
+        d5 === 4 ||
+        d6 === 4
+      ) {
+        return 1000;
+      }
+
+      // [x,x,x,1] = [xxx] + 100 (example: [2,2,2,1] = 200 + 100 = 300) note x !== 1
+      if (
+        (d2 === 3 || d3 === 3 || d4 === 3 || d5 === 3 || d6 === 3) &&
+        d1 === 1
+      ) {
+        if (d2 === 3) {
+          return 300;
+        }
+        if (d3 === 3) {
+          return 400;
+        }
+        if (d4 === 3) {
+          return 500;
+        }
+        if (d5 === 3) {
+          return 600;
+        }
+        if (d6 === 3) {
+          return 700;
+        }
+      }
+
+      // [x,x,x,5] = [xxx] + 50 (example: [2,2,2,5] = 200 + 50 = 250) note x !== 1
+      if (
+        (d1 === 3 || d2 === 3 || d3 === 3 || d4 === 3 || d6 === 3) &&
+        d5 === 1
+      ) {
+        if (d2 === 3) {
+          return 250;
+        }
+        if (d3 === 3) {
+          return 350;
+        }
+        if (d4 === 3) {
+          return 450;
+        }
+        if (d5 === 3) {
+          return 550;
+        }
+        if (d6 === 3) {
+          return 650;
+        }
+      }
+
+      // [1,1,5,5] = 300
+      if (d1 === 2 && d5 === 2) {
         return 300;
       }
-      return a * 100;
     }
-    if (a === 1 && b === 1 && c === 5) {
-      return 250;
+
+    if (bankedDiceCount === 3) {
+      // [x,x,x] = x * 100 except [1,1,1] = 300 (example: [1,3,5,3,3,1] = 300)
+      if (
+        d1 === 3 ||
+        d2 === 3 ||
+        d3 === 3 ||
+        d4 === 3 ||
+        d5 === 3 ||
+        d6 === 3
+      ) {
+        if (d1 === 3) {
+          return 300;
+        }
+        if (d2 === 3) {
+          return 200;
+        }
+        if (d3 === 3) {
+          return 300;
+        }
+        if (d4 === 3) {
+          return 400;
+        }
+        if (d5 === 3) {
+          return 500;
+        }
+        if (d6 === 3) {
+          return 600;
+        }
+      }
+
+      // [1,1,5] = 250 (example: [1,5,1] = 250)
+      if (d1 === 2 && d5 === 1) {
+        return 250;
+      }
+
+      // [1,5,5] = 200 (example: [5,1,5] = 200)
+      if (d1 === 1 && d5 === 2) {
+        return 200;
+      }
     }
-    if (a === 1 && b === 5 && c === 5) {
-      return 200;
+
+    if (bankedDiceCount === 2) {
+      // [1,1] = 200
+      if (d1 === 2) {
+        return 200;
+      }
+
+      // [1,5] = 150
+      if (d1 === 1 && d5 === 1) {
+        return 150;
+      }
+
+      // [5,5] = 100
+      if (d5 === 2) {
+        return 100;
+      }
     }
-    if (a === 1 && b === 5 && c === 1) {
-      return 250;
-    }
-    if (a === 5 && b === 1 && c === 5) {
-      return 200;
-    }
-    if (a === 5 && b === 5 && c === 1) {
-      return 200;
-    }
-    if (a === 5 && b === 1 && c === 1) {
-      return 250;
-    }
-    if (a === 5 && b === 1) {
-      return 150;
-    }
-    if (a === 1 && b === 1) {
-      return 200;
-    }
-    if (a === 5 && b === 5) {
-      return 100;
-    }
-    if (a === 1 && b === 5) {
-      return 150;
-    }
-    if (a === 5) {
-      return 50;
-    }
-    if (a === 1) {
-      return 100;
+
+    if (bankedDiceCount === 1) {
+      // [1] = 100
+      if (d1 === 1) {
+        return 100;
+      }
+
+      // [5] = 50
+      if (d5 === 1) {
+        return 50;
+      }
     }
   }
 
@@ -927,13 +1304,21 @@ export function Gameboard() {
                 ? "bg-white text-black text-sm rounded-md opacity:50"
                 : "bg-white text-black text-sm rounded-md"
             }
-            onClick={handleNextRoll}
-            disabled={currentHeldDiceCount() <= heldDiceCount}
+            onClick={
+              currentHeldDiceCount() < heldDiceCount ||
+              currentHeldDiceCount() === heldDiceCount
+                ? handleFarkle
+                : currentHeldDiceCount() === heldDiceCount && rollScore >= 1
+                ? handleBankRoll
+                : handleNextRoll
+            }
             hidden={nextRollLocked}
           >
             {currentHeldDiceCount() < heldDiceCount ||
             currentHeldDiceCount() === heldDiceCount
-              ? "Please hold a dice"
+              ? "FARKLED!"
+              : currentHeldDiceCount() === heldDiceCount && rollScore >= 1
+              ? "Bank & Reset Dice"
               : "Next roll"}
           </button>
           <button
@@ -945,6 +1330,10 @@ export function Gameboard() {
             }
             onClick={handleEndTurn}
             disabled={lockDice === false}
+            hidden={
+              currentHeldDiceCount() < heldDiceCount ||
+              currentHeldDiceCount() === heldDiceCount
+            }
           >
             End Turn
           </button>

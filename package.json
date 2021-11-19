@@ -1,5 +1,6 @@
 {
   "name": "farkle",
+  "homepage": "http://testbed.scootertesting.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
