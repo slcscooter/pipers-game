@@ -66,6 +66,8 @@ export function Gameboard() {
     setAltSource6("Dice 6 value is Roll");
     setDiceScore6(0);
     setHeldDiceRoll6(undefined);
+    setTurnScore(0);
+    setHeldDiceCount(0);
   }
 
   /**
@@ -211,7 +213,7 @@ export function Gameboard() {
       } else if (roll3 === 3) {
         return rollImage3;
       } else if (roll3 === 2) {
-        return rollImage3;
+        return rollImage2;
       } else if (roll3 === 1) {
         return rollImage1;
       }
@@ -388,6 +390,18 @@ export function Gameboard() {
   const [nextRollLocked, setNextRollLocked] = useState(true);
   const [rollCount, setRollCount] = useState(1);
   const [turnScore, setTurnScore] = useState(0);
+  const [heldDiceCount, setHeldDiceCount] = useState(0);
+
+  function currentHeldDiceCount() {
+    const dice1 = heldDice1 === true ? 1 : 0;
+    const dice2 = heldDice2 === true ? 1 : 0;
+    const dice3 = heldDice3 === true ? 1 : 0;
+    const dice4 = heldDice4 === true ? 1 : 0;
+    const dice5 = heldDice5 === true ? 1 : 0;
+    const dice6 = heldDice6 === true ? 1 : 0;
+
+    return dice1 + dice2 + dice3 + dice4 + dice5 + dice6;
+  }
 
   function handleLockDice() {
     setLockDice(true);
@@ -403,6 +417,8 @@ export function Gameboard() {
     setLockDice(false);
     setNextRollLocked(true);
     setRollCount(rollCount + 1);
+    setTurnScore(turnScore + rollScore);
+    setHeldDiceCount(currentHeldDiceCount());
 
     if (!heldDice1) {
       setRolled1(false);
@@ -511,40 +527,118 @@ export function Gameboard() {
     setAltSource6("Dice 6 value is Roll");
     setDiceScore6(0);
     setTurnScore(0);
+    setHeldDiceCount(0);
   }
 
-  function RollList() {
-    const dice1 = heldDice1 === true ? `D1: ${diceScore1} ` : undefined;
-    const dice2 = heldDice2 === true ? `D2: ${diceScore2} ` : undefined;
-    const dice3 = heldDice3 === true ? `D3: ${diceScore3} ` : undefined;
-    const dice4 = heldDice4 === true ? `D4: ${diceScore4} ` : undefined;
-    const dice5 = heldDice5 === true ? `D5: ${diceScore5} ` : undefined;
-    const dice6 = heldDice6 === true ? `D6: ${diceScore6}` : undefined;
+  /**
+   * Banked Dice Functions
+   */
 
-    const bankedDiceList = [];
+  const dice1 = heldDice1 === true ? diceScore1 : undefined;
+  const dice2 = heldDice2 === true ? diceScore2 : undefined;
+  const dice3 = heldDice3 === true ? diceScore3 : undefined;
+  const dice4 = heldDice4 === true ? diceScore4 : undefined;
+  const dice5 = heldDice5 === true ? diceScore5 : undefined;
+  const dice6 = heldDice6 === true ? diceScore6 : undefined;
+  const updateDice1 = heldDiceRoll1 < rollCount ? undefined : dice1;
+  const updateDice2 = heldDiceRoll2 < rollCount ? undefined : dice2;
+  const updateDice3 = heldDiceRoll3 < rollCount ? undefined : dice3;
+  const updateDice4 = heldDiceRoll4 < rollCount ? undefined : dice4;
+  const updateDice5 = heldDiceRoll5 < rollCount ? undefined : dice5;
+  const updateDice6 = heldDiceRoll6 < rollCount ? undefined : dice6;
 
-    if (dice1 !== undefined) {
-      bankedDiceList.push(dice1);
-    }
-    if (dice2 !== undefined) {
-      bankedDiceList.push(dice2);
-    }
-    if (dice3 !== undefined) {
-      bankedDiceList.push(dice3);
-    }
-    if (dice4 !== undefined) {
-      bankedDiceList.push(dice4);
-    }
-    if (dice5 !== undefined) {
-      bankedDiceList.push(dice5);
-    }
-    if (dice6 !== undefined) {
-      bankedDiceList.push(dice6);
-    }
+  const bankedDiceList = [];
 
+  if (updateDice1 !== undefined) {
+    bankedDiceList.push(dice1);
+  }
+  if (updateDice2 !== undefined) {
+    bankedDiceList.push(dice2);
+  }
+  if (updateDice3 !== undefined) {
+    bankedDiceList.push(dice3);
+  }
+  if (updateDice4 !== undefined) {
+    bankedDiceList.push(dice4);
+  }
+  if (updateDice5 !== undefined) {
+    bankedDiceList.push(dice5);
+  }
+  if (updateDice6 !== undefined) {
+    bankedDiceList.push(dice6);
+  }
+
+  const rollScore = scoreMap();
+
+  function scoreMap() {
+    let [a, b, c, d, e, f] = bankedDiceList;
+
+    if (
+      (a === 6 && b === 6 && c === 6 && d === 6 && e === 6 && f === 6) ||
+      (a === 5 && b === 5 && c === 5 && d === 5 && e === 5 && f === 5) ||
+      (a === 4 && b === 4 && c === 4 && d === 4 && e === 4 && f === 4) ||
+      (a === 3 && b === 3 && c === 3 && d === 3 && e === 3 && f === 3) ||
+      (a === 2 && b === 2 && c === 2 && d === 2 && e === 2 && f === 2) ||
+      (a === 1 && b === 1 && c === 1 && d === 1 && e === 1 && f === 1)
+    ) {
+      return 3000;
+    }
+    if (a === b && b === c && a === c) {
+      if (a === 1) {
+        return 300;
+      }
+      return a * 100;
+    }
+    if (a === 1 && b === 1 && c === 5) {
+      return 250;
+    }
+    if (a === 1 && b === 5 && c === 5) {
+      return 200;
+    }
+    if (a === 1 && b === 5 && c === 1) {
+      return 250;
+    }
+    if (a === 5 && b === 1 && c === 5) {
+      return 200;
+    }
+    if (a === 5 && b === 5 && c === 1) {
+      return 200;
+    }
+    if (a === 5 && b === 1 && c === 1) {
+      return 250;
+    }
+    if (a === 5 && b === 1) {
+      return 150;
+    }
+    if (a === 1 && b === 1) {
+      return 200;
+    }
+    if (a === 5 && b === 5) {
+      return 100;
+    }
+    if (a === 1 && b === 5) {
+      return 150;
+    }
+    if (a === 5) {
+      return 50;
+    }
+    if (a === 1) {
+      return 100;
+    }
+  }
+
+  function RollScore() {
     return (
       <>
-        <p>Banked: {bankedDiceList}</p>
+        <p>Possible Roll Score: {rollScore}</p>
+      </>
+    );
+  }
+
+  function BankedScore() {
+    return (
+      <>
+        <p>Banked Score: {turnScore}</p>
       </>
     );
   }
@@ -570,7 +664,12 @@ export function Gameboard() {
       <div id="gameboard-container" class="flex space-y-4 flex-col">
         <div id="dice-container-1" class="flex space-x-4 flex-row">
           <div id="dice-1" class="flex space-y-4 flex-col">
-            <img className="dice-image" src={imageSource1} alt={altSource1} />
+            <img
+              id="dice-image-1"
+              class="h-32 w-32"
+              src={imageSource1}
+              alt={altSource1}
+            />
             <div
               className="dice-actions-container-1"
               class="flex space-x-4 flex-row"
@@ -579,8 +678,8 @@ export function Gameboard() {
                 id="dice-1-hold-button"
                 class={
                   lockDice === true || rollCount > heldDiceRoll1
-                    ? "bg-white text-black text-md rounded-md opacity-50"
-                    : "bg-white text-black text-md rounded-md"
+                    ? "bg-white text-black text-sm rounded-md opacity-50"
+                    : "bg-white text-black text-sm rounded-md"
                 }
                 onClick={
                   heldDice1 === false ? handleHoldDice1 : handleUnHoldDice1
@@ -594,8 +693,8 @@ export function Gameboard() {
                 id="dice-1-roll-button"
                 class={
                   rolled1
-                    ? "bg-white text-black text-md rounded-md opacity-50"
-                    : "bg-white text-black text-md rounded-md"
+                    ? "bg-white text-black text-sm rounded-md opacity-50"
+                    : "bg-white text-black text-sm rounded-md"
                 }
                 onClick={handleRoll1}
                 disabled={rolled1}
@@ -606,14 +705,19 @@ export function Gameboard() {
             </div>
           </div>
           <div id="dice-2" class="flex space-y-4 flex-col">
-            <img className="dice-image" src={imageSource2} alt={altSource2} />
+            <img
+              id="dice-image-2"
+              class="h-32 w-32"
+              src={imageSource2}
+              alt={altSource2}
+            />
             <div id="dice-actions-container-2" class="flex space-x-4 flex-row">
               <button
                 id="dice-2-hold-button"
                 class={
                   lockDice === true || rollCount > heldDiceRoll2
-                    ? "bg-white text-black text-md rounded-md opacity-50"
-                    : "bg-white text-black text-md rounded-md"
+                    ? "bg-white text-black text-sm rounded-md opacity-50"
+                    : "bg-white text-black text-sm rounded-md"
                 }
                 onClick={
                   heldDice2 === false ? handleHoldDice2 : handleUnHoldDice2
@@ -627,8 +731,8 @@ export function Gameboard() {
                 id="dice-2-roll-button"
                 class={
                   rolled2
-                    ? "bg-white text-black text-md rounded-md opacity-50"
-                    : "bg-white text-black text-md rounded-md"
+                    ? "bg-white text-black text-sm rounded-md opacity-50"
+                    : "bg-white text-black text-sm rounded-md"
                 }
                 onClick={handleRoll2}
                 disabled={rolled2}
@@ -639,14 +743,19 @@ export function Gameboard() {
             </div>
           </div>
           <div id="dice-3" class="flex space-y-4 flex-col">
-            <img className="dice-image" src={imageSource3} alt={altSource3} />
+            <img
+              id="dice-image-3"
+              class="h-32 w-32"
+              src={imageSource3}
+              alt={altSource3}
+            />
             <div id="dice-actions-container-3" class="flex space-x-4 flex-row">
               <button
                 id="dice-3-hold-button"
                 class={
                   lockDice === true || rollCount > heldDiceRoll3
-                    ? "bg-white text-black text-md rounded-md opacity-50"
-                    : "bg-white text-black text-md rounded-md"
+                    ? "bg-white text-black text-sm rounded-md opacity-50"
+                    : "bg-white text-black text-sm rounded-md"
                 }
                 onClick={
                   heldDice3 === false ? handleHoldDice3 : handleUnHoldDice3
@@ -660,8 +769,8 @@ export function Gameboard() {
                 id="dice-3-roll-button"
                 class={
                   rolled3
-                    ? "bg-white text-black text-md rounded-md opacity-50"
-                    : "bg-white text-black text-md rounded-md"
+                    ? "bg-white text-black text-sm rounded-md opacity-50"
+                    : "bg-white text-black text-sm rounded-md"
                 }
                 onClick={handleRoll3}
                 disabled={rolled3}
@@ -674,14 +783,19 @@ export function Gameboard() {
         </div>
         <div id="dice-container-2" class="flex space-x-4 flex-row">
           <div id="dice-4" class="flex space-y-4 flex-col">
-            <img className="dice-image" src={imageSource4} alt={altSource4} />
+            <img
+              id="dice-image-4"
+              class="h-32 w-32"
+              src={imageSource4}
+              alt={altSource4}
+            />
             <div id="dice-actions-container-4" class="flex space-x-4 flex-row">
               <button
                 id="dice-4-hold-button"
                 class={
                   lockDice === true || rollCount > heldDiceRoll4
-                    ? "bg-white text-black text-md rounded-md opacity-50"
-                    : "bg-white text-black text-md rounded-md"
+                    ? "bg-white text-black text-sm rounded-md opacity-50"
+                    : "bg-white text-black text-sm rounded-md"
                 }
                 onClick={
                   heldDice4 === false ? handleHoldDice4 : handleUnHoldDice4
@@ -695,8 +809,8 @@ export function Gameboard() {
                 id="dice-4-roll-button"
                 class={
                   rolled4
-                    ? "bg-white text-black text-md rounded-md opacity-50"
-                    : "bg-white text-black text-md rounded-md"
+                    ? "bg-white text-black text-sm rounded-md opacity-50"
+                    : "bg-white text-black text-sm rounded-md"
                 }
                 onClick={handleRoll4}
                 disabled={rolled4}
@@ -707,14 +821,19 @@ export function Gameboard() {
             </div>
           </div>
           <div id="dice-5" class="flex space-y-4 flex-col">
-            <img className="dice-image" src={imageSource5} alt={altSource5} />
+            <img
+              id="dice-image-5"
+              class="h-32 w-32"
+              src={imageSource5}
+              alt={altSource5}
+            />
             <div id="dice-actions-container-5" class="flex space-x-4 flex-row">
               <button
                 id="dice-5-hold-button"
                 class={
                   lockDice === true || rollCount > heldDiceRoll5
-                    ? "bg-white text-black text-md rounded-md opacity-50"
-                    : "bg-white text-black text-md rounded-md"
+                    ? "bg-white text-black text-sm rounded-md opacity-50"
+                    : "bg-white text-black text-sm rounded-md"
                 }
                 onClick={
                   heldDice5 === false ? handleHoldDice5 : handleUnHoldDice5
@@ -728,8 +847,8 @@ export function Gameboard() {
                 id="dice-5-roll-button"
                 class={
                   rolled5
-                    ? "bg-white text-black text-md rounded-md opacity-50"
-                    : "bg-white text-black text-md rounded-md"
+                    ? "bg-white text-black text-sm rounded-md opacity-50"
+                    : "bg-white text-black text-sm rounded-md"
                 }
                 onClick={handleRoll5}
                 disabled={rolled5}
@@ -740,14 +859,19 @@ export function Gameboard() {
             </div>
           </div>
           <div id="dice-6" class="flex space-y-4 flex-col">
-            <img className="dice-image" src={imageSource6} alt={altSource6} />
+            <img
+              id="dice-image-6"
+              class="h-32 w-32"
+              src={imageSource6}
+              alt={altSource6}
+            />
             <div id="dice-actions-container-6" class="flex space-x-4 flex-row">
               <button
                 id="dice-6-hold-button"
                 class={
                   lockDice === true || rollCount > heldDiceRoll6
-                    ? "bg-white text-black text-md rounded-md opacity-50"
-                    : "bg-white text-black text-md rounded-md"
+                    ? "bg-white text-black text-sm rounded-md opacity-50"
+                    : "bg-white text-black text-sm rounded-md"
                 }
                 onClick={
                   heldDice6 === false ? handleHoldDice6 : handleUnHoldDice6
@@ -761,8 +885,8 @@ export function Gameboard() {
                 id="dice-6-roll-button"
                 class={
                   rolled6
-                    ? "bg-white text-black text-md rounded-md opacity-50"
-                    : "bg-white text-black text-md rounded-md"
+                    ? "bg-white text-black text-sm rounded-md opacity-50"
+                    : "bg-white text-black text-sm rounded-md"
                 }
                 onClick={handleRoll6}
                 disabled={rolled6}
@@ -774,7 +898,8 @@ export function Gameboard() {
           </div>
         </div>
         <div className="turn-actions-container">
-          <RollList />
+          <RollScore />
+          <BankedScore />
           <p className="turn-player-roll-text">
             Turn: {turnCount}, Player: {player}, Roll: {rollCount}
           </p>
@@ -797,11 +922,18 @@ export function Gameboard() {
           </button>
           <button
             id="next-roll-button"
-            class="bg-white text-black text-sm rounded-md"
+            class={
+              currentHeldDiceCount() <= heldDiceCount
+                ? "bg-white text-black text-sm rounded-md opacity:50"
+                : "bg-white text-black text-sm rounded-md"
+            }
             onClick={handleNextRoll}
+            disabled={currentHeldDiceCount() <= heldDiceCount}
             hidden={nextRollLocked}
           >
-            Next Roll
+            {currentHeldDiceCount() <= heldDiceCount
+              ? "Please hold a dice"
+              : "Next roll"}
           </button>
           <button
             id="end-turn-button"
