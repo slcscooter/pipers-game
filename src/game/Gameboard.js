@@ -392,7 +392,7 @@ export function Gameboard() {
   const [turnScore, setTurnScore] = useState(0);
   const [heldDiceCount, setHeldDiceCount] = useState(0);
 
-  function currentHeldDiceCount() {
+  let currentHeldDiceCount = () => {
     const dice1 = heldDice1 === true ? 1 : 0;
     const dice2 = heldDice2 === true ? 1 : 0;
     const dice3 = heldDice3 === true ? 1 : 0;
@@ -401,7 +401,7 @@ export function Gameboard() {
     const dice6 = heldDice6 === true ? 1 : 0;
 
     return dice1 + dice2 + dice3 + dice4 + dice5 + dice6;
-  }
+  };
 
   function handleLockDice() {
     setLockDice(true);
@@ -630,7 +630,7 @@ export function Gameboard() {
   function RollScore() {
     return (
       <>
-        <p>Possible Roll Score: {rollScore}</p>
+        <p>Possible Roll Score: {rollScore >= 0 ? rollScore : 0}</p>
       </>
     );
   }
@@ -931,7 +931,8 @@ export function Gameboard() {
             disabled={currentHeldDiceCount() <= heldDiceCount}
             hidden={nextRollLocked}
           >
-            {currentHeldDiceCount() <= heldDiceCount
+            {currentHeldDiceCount() < heldDiceCount ||
+            currentHeldDiceCount() === heldDiceCount
               ? "Please hold a dice"
               : "Next roll"}
           </button>
