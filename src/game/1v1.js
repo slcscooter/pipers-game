@@ -1,6 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import {
+  buttonStyle,
+  diceImage,
+  flexCol,
+  flexRow,
+  textDisabled,
+  text,
+} from "./game.css";
+import {
   rollImage,
   rollImage1,
   rollImage2,
@@ -951,16 +959,16 @@ export function Gameboard1v1() {
 
   function WinnerDeclaration() {
     return (
-      <div id="game" class="flex space-y-4 flex-col">
+      <div id="game" class={flexCol}>
         <div id="winner-declaration-container">
           <p id="winner-declaration-text" class="text-8xl">
             {winnerDeclaration} has won the game!
           </p>
         </div>
-        <div id="game-level-controls" class="flex space-x-4 flex-row">
+        <div id="game-level-controls" class={flexRow}>
           <button
             id="reset-game-button"
-            class="bg-white text-black text-xs rounded-md"
+            class={buttonStyle}
             onClick={handleResetGame}
           >
             Reset Game
@@ -978,34 +986,34 @@ export function Gameboard1v1() {
     );
   } else {
     return (
-      <div id="game" class="flex space-y-4 flex-col">
+      <div id="game" class={flexCol}>
         <p id="greeting" class="text-4xl">
           Welcome to 2-player Farkle!
         </p>
-        <div id="game-level-controls" class="flex space-x-4 flex-row">
+        <div id="game-level-controls" class={flexRow}>
           <button
             id="reset-game-button"
-            class="bg-white text-black text-xs rounded-md"
+            class={buttonStyle}
             onClick={handleResetGame}
           >
             Reset Game
           </button>
           <button
             id="rules-button"
-            class="bg-white text-black text-xs rounded-md"
+            class={buttonStyle}
             onClick={hideRules ? handleShowRules : handleHideRules}
           >
             {hideRules ? "Show rules" : "Hide Rules"}
           </button>
           <button
             id="pause-game-button"
-            class="bg-white text-black text-xs rounded-md"
+            class={buttonStyle}
             onClick={pauseGame ? handleUnpauseGame : handlePauseGame}
           >
             {pauseGame ? "Unpause game" : "Pause game"}
           </button>
         </div>
-        <div id="table" class="flex space-x-4 flex-row">
+        <div id="table" class={flexRow}>
           <img
             id="farkle-rules"
             class="h-96 w-96"
@@ -1013,25 +1021,22 @@ export function Gameboard1v1() {
             alt="explanation of rules"
             hidden={hideRules}
           />
-          <div id="gameboard-container" class="flex space-y-4 flex-col">
-            <div id="dice-container-1" class="flex space-x-4 flex-row">
-              <div id="dice-1" class="flex space-y-4 flex-col">
+          <div id="gameboard-container" class={flexCol}>
+            <div id="dice-container-1" class={flexRow}>
+              <div id="dice-1" class={flexCol}>
                 <img
                   id="dice-image-1"
-                  class="h-32 w-32"
+                  class={diceImage}
                   src={imageSource1}
                   alt={altSource1}
                 />
-                <div
-                  className="dice-actions-container-1"
-                  class="flex space-x-4 flex-row"
-                >
+                <div className="dice-actions-container-1" class={flexRow}>
                   <button
                     id="dice-1-hold-button"
                     class={
                       lockDice === true || rollCount > heldDiceRoll1
-                        ? "bg-white text-black text-sm rounded-md opacity-50"
-                        : "bg-white text-black text-sm rounded-md"
+                        ? { textDisabled }
+                        : { text }
                     }
                     onClick={
                       heldDice1 === false ? handleHoldDice1 : handleUnHoldDice1
@@ -1047,23 +1052,20 @@ export function Gameboard1v1() {
                   </button>
                 </div>
               </div>
-              <div id="dice-2" class="flex space-y-4 flex-col">
+              <div id="dice-2" class={flexCol}>
                 <img
                   id="dice-image-2"
-                  class="h-32 w-32"
+                  class={diceImage}
                   src={imageSource2}
                   alt={altSource2}
                 />
-                <div
-                  id="dice-actions-container-2"
-                  class="flex space-x-4 flex-row"
-                >
+                <div id="dice-actions-container-2" class={flexRow}>
                   <button
                     id="dice-2-hold-button"
                     class={
                       lockDice === true || rollCount > heldDiceRoll2
-                        ? "bg-white text-black text-sm rounded-md opacity-50"
-                        : "bg-white text-black text-sm rounded-md"
+                        ? { textDisabled }
+                        : { text }
                     }
                     onClick={
                       heldDice2 === false ? handleHoldDice2 : handleUnHoldDice2
@@ -1079,23 +1081,20 @@ export function Gameboard1v1() {
                   </button>
                 </div>
               </div>
-              <div id="dice-3" class="flex space-y-4 flex-col">
+              <div id="dice-3" class={flexCol}>
                 <img
                   id="dice-image-3"
-                  class="h-32 w-32"
+                  class={diceImage}
                   src={imageSource3}
                   alt={altSource3}
                 />
-                <div
-                  id="dice-actions-container-3"
-                  class="flex space-x-4 flex-row"
-                >
+                <div id="dice-actions-container-3" class={flexRow}>
                   <button
                     id="dice-3-hold-button"
                     class={
                       lockDice === true || rollCount > heldDiceRoll3
-                        ? "bg-white text-black text-sm rounded-md opacity-50"
-                        : "bg-white text-black text-sm rounded-md"
+                        ? { textDisabled }
+                        : { text }
                     }
                     onClick={
                       heldDice3 === false ? handleHoldDice3 : handleUnHoldDice3
@@ -1112,24 +1111,21 @@ export function Gameboard1v1() {
                 </div>
               </div>
             </div>
-            <div id="dice-container-2" class="flex space-x-4 flex-row">
-              <div id="dice-4" class="flex space-y-4 flex-col">
+            <div id="dice-container-2" class={flexRow}>
+              <div id="dice-4" class={flexCol}>
                 <img
                   id="dice-image-4"
-                  class="h-32 w-32"
+                  class={diceImage}
                   src={imageSource4}
                   alt={altSource4}
                 />
-                <div
-                  id="dice-actions-container-4"
-                  class="flex space-x-4 flex-row"
-                >
+                <div id="dice-actions-container-4" class={flexRow}>
                   <button
                     id="dice-4-hold-button"
                     class={
                       lockDice === true || rollCount > heldDiceRoll4
-                        ? "bg-white text-black text-sm rounded-md opacity-50"
-                        : "bg-white text-black text-sm rounded-md"
+                        ? { textDisabled }
+                        : { text }
                     }
                     onClick={
                       heldDice4 === false ? handleHoldDice4 : handleUnHoldDice4
@@ -1145,23 +1141,20 @@ export function Gameboard1v1() {
                   </button>
                 </div>
               </div>
-              <div id="dice-5" class="flex space-y-4 flex-col">
+              <div id="dice-5" class={flexCol}>
                 <img
                   id="dice-image-5"
-                  class="h-32 w-32"
+                  class={diceImage}
                   src={imageSource5}
                   alt={altSource5}
                 />
-                <div
-                  id="dice-actions-container-5"
-                  class="flex space-x-4 flex-row"
-                >
+                <div id="dice-actions-container-5" class={flexRow}>
                   <button
                     id="dice-5-hold-button"
                     class={
                       lockDice === true || rollCount > heldDiceRoll5
-                        ? "bg-white text-black text-sm rounded-md opacity-50"
-                        : "bg-white text-black text-sm rounded-md"
+                        ? { textDisabled }
+                        : { text }
                     }
                     onClick={
                       heldDice5 === false ? handleHoldDice5 : handleUnHoldDice5
@@ -1177,23 +1170,20 @@ export function Gameboard1v1() {
                   </button>
                 </div>
               </div>
-              <div id="dice-6" class="flex space-y-4 flex-col">
+              <div id="dice-6" class={flexCol}>
                 <img
                   id="dice-image-6"
-                  class="h-32 w-32"
+                  class={diceImage}
                   src={imageSource6}
                   alt={altSource6}
                 />
-                <div
-                  id="dice-actions-container-6"
-                  class="flex space-x-4 flex-row"
-                >
+                <div id="dice-actions-container-6" class={flexRow}>
                   <button
                     id="dice-6-hold-button"
                     class={
                       lockDice === true || rollCount > heldDiceRoll6
-                        ? "bg-white text-black text-sm rounded-md opacity-50"
-                        : "bg-white text-black text-sm rounded-md"
+                        ? { textDisabled }
+                        : { text }
                     }
                     onClick={
                       heldDice6 === false ? handleHoldDice6 : handleUnHoldDice6
@@ -1210,10 +1200,10 @@ export function Gameboard1v1() {
                 </div>
               </div>
             </div>
-            <div id="dice-container-3" class="flex space-x-4 flex-row">
+            <div id="dice-container-3" class={flexRow}>
               <button
                 id="roll-available-dice"
-                class="bg-white text-black text-sm rounded-md"
+                class={text}
                 onClick={rollAllAvailableDice}
                 hidden={
                   (rolled1 &&
@@ -1236,7 +1226,7 @@ export function Gameboard1v1() {
               </p>
               <button
                 id="lock-dice-button"
-                class="bg-white text-black text-sm rounded-md"
+                class={text}
                 onClick={lockDice === false ? handleLockDice : handleUnlockDice}
                 hidden={
                   heldDice1 === true ||
@@ -1256,8 +1246,8 @@ export function Gameboard1v1() {
                 id="next-roll-button"
                 class={
                   currentHeldDiceCount() <= heldDiceCount
-                    ? "bg-white text-black text-sm rounded-md opacity:50"
-                    : "bg-white text-black text-sm rounded-md"
+                    ? { textDisabled }
+                    : { text }
                 }
                 onClick={
                   currentHeldDiceCount() < heldDiceCount ||
@@ -1279,11 +1269,7 @@ export function Gameboard1v1() {
               </button>
               <button
                 id="end-turn-button"
-                class={
-                  lockDice === false
-                    ? "bg-white text-black text-sm rounded-md opacity-50"
-                    : "bg-white text-black text-sm rounded-md"
-                }
+                class={lockDice === false ? { textDisabled } : { text }}
                 onClick={handleEndTurn}
                 disabled={lockDice === false || pauseGame}
                 hidden={

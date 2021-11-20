@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "./App.css";
 import { Gameboard1v1 } from "./game/1v1";
+import { buttonStyle } from "./game/game.css";
 import { GameboardSolo } from "./game/Solo";
 
 function App() {
@@ -21,11 +21,14 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div id="App" class="text-center">
+      <header
+        id="App-header"
+        class="bg-black min-h-screen flex flex-col items-center justify-center"
+      >
         <button
           id="game-selector"
-          class="bg-white text-black text-xs rounded-md"
+          class={buttonStyle}
           onClick={selectGame === "Solo" ? handleSelect1v1 : handleSelectSolo}
         >
           {selectGame === "Solo" ? "Change game to 1v1" : "Change game to Solo"}
