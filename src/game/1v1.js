@@ -10,7 +10,7 @@ import {
   rollImage6,
 } from "./refs/imageRefs";
 
-export function Gameboard() {
+export function Gameboard1v1() {
   const [hideRules, setHideRules] = useState(false);
 
   function handleHideRules() {
