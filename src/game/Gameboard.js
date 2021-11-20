@@ -68,6 +68,27 @@ export function Gameboard() {
     setHeldDiceRoll6(undefined);
     setTurnScore(0);
     setHeldDiceCount(0);
+    setPauseGame(false);
+  }
+
+  const [hideRules, setHideRules] = useState(false);
+
+  function handleHideRules() {
+    setHideRules(true);
+  }
+
+  function handleShowRules() {
+    setHideRules(false);
+  }
+
+  const [pauseGame, setPauseGame] = useState(false);
+
+  function handlePauseGame() {
+    setPauseGame(true);
+  }
+
+  function handleUnpauseGame() {
+    setPauseGame(false);
   }
 
   /**
@@ -1032,13 +1053,27 @@ export function Gameboard() {
       <p id="greeting" class="text-4xl">
         Welcome to 2-player Farkle!
       </p>
-      <div className="game-level-controls">
+      <div id="game-level-controls" class="flex space-x-4 flex-row">
         <button
           id="reset-game-button"
           class="bg-white text-black text-xs rounded-md"
           onClick={handleResetGame}
         >
           Reset Game
+        </button>
+        <button
+          id="rules-button"
+          class="bg-white text-black text-xs rounded-md"
+          onClick={hideRules ? handleShowRules : handleHideRules}
+        >
+          {hideRules ? "Show rules" : "Hide Rules"}
+        </button>
+        <button
+          id="pause-game-button"
+          class="bg-white text-black text-xs rounded-md"
+          onClick={pauseGame ? handleUnpauseGame : handlePauseGame}
+        >
+          {pauseGame ? "Unpause game" : "Pause game"}
         </button>
       </div>
       <div id="table" class="flex space-x-4 flex-row">
@@ -1047,6 +1082,7 @@ export function Gameboard() {
           class="h-96 w-96"
           src="https://www.ultraboardgames.com/farkle/gfx/nano1.jpg"
           alt="explanation of rules"
+          hidden={hideRules}
         />
         <div id="gameboard-container" class="flex space-y-4 flex-col">
           <div id="dice-container-1" class="flex space-x-4 flex-row">
@@ -1072,7 +1108,9 @@ export function Gameboard() {
                     heldDice1 === false ? handleHoldDice1 : handleUnHoldDice1
                   }
                   hidden={diceValue1 === "Roll"}
-                  disabled={lockDice === true || rollCount > heldDiceRoll1}
+                  disabled={
+                    lockDice === true || rollCount > heldDiceRoll1 || pauseGame
+                  }
                 >
                   {heldDice1 === false ? "Hold" : "Unhold"}
                 </button>
@@ -1084,7 +1122,7 @@ export function Gameboard() {
                       : "bg-white text-black text-sm rounded-md"
                   }
                   onClick={handleRoll1}
-                  disabled={rolled1}
+                  disabled={rolled1 || pauseGame}
                   hidden={heldDice1 === true}
                 >
                   Roll
@@ -1113,7 +1151,9 @@ export function Gameboard() {
                     heldDice2 === false ? handleHoldDice2 : handleUnHoldDice2
                   }
                   hidden={diceValue2 === "Roll"}
-                  disabled={lockDice === true || rollCount > heldDiceRoll2}
+                  disabled={
+                    lockDice === true || rollCount > heldDiceRoll2 || pauseGame
+                  }
                 >
                   {heldDice2 === false ? "Hold" : "Unhold"}
                 </button>
@@ -1125,7 +1165,7 @@ export function Gameboard() {
                       : "bg-white text-black text-sm rounded-md"
                   }
                   onClick={handleRoll2}
-                  disabled={rolled2}
+                  disabled={rolled2 || pauseGame}
                   hidden={heldDice2 === true}
                 >
                   Roll
@@ -1154,7 +1194,9 @@ export function Gameboard() {
                     heldDice3 === false ? handleHoldDice3 : handleUnHoldDice3
                   }
                   hidden={diceValue3 === "Roll"}
-                  disabled={lockDice === true || rollCount > heldDiceRoll3}
+                  disabled={
+                    lockDice === true || rollCount > heldDiceRoll3 || pauseGame
+                  }
                 >
                   {heldDice3 === false ? "Hold" : "Unhold"}
                 </button>
@@ -1166,7 +1208,7 @@ export function Gameboard() {
                       : "bg-white text-black text-sm rounded-md"
                   }
                   onClick={handleRoll3}
-                  disabled={rolled3}
+                  disabled={rolled3 || pauseGame}
                   hidden={heldDice3 === true}
                 >
                   Roll
@@ -1197,7 +1239,9 @@ export function Gameboard() {
                     heldDice4 === false ? handleHoldDice4 : handleUnHoldDice4
                   }
                   hidden={diceValue4 === "Roll"}
-                  disabled={lockDice === true || rollCount > heldDiceRoll4}
+                  disabled={
+                    lockDice === true || rollCount > heldDiceRoll4 || pauseGame
+                  }
                 >
                   {heldDice4 === false ? "Hold" : "Unhold"}
                 </button>
@@ -1209,7 +1253,7 @@ export function Gameboard() {
                       : "bg-white text-black text-sm rounded-md"
                   }
                   onClick={handleRoll4}
-                  disabled={rolled4}
+                  disabled={rolled4 || pauseGame}
                   hidden={heldDice4 === true}
                 >
                   Roll
@@ -1238,7 +1282,9 @@ export function Gameboard() {
                     heldDice5 === false ? handleHoldDice5 : handleUnHoldDice5
                   }
                   hidden={diceValue5 === "Roll"}
-                  disabled={lockDice === true || rollCount > heldDiceRoll5}
+                  disabled={
+                    lockDice === true || rollCount > heldDiceRoll5 || pauseGame
+                  }
                 >
                   {heldDice5 === false ? "Hold" : "Unhold"}
                 </button>
@@ -1250,7 +1296,7 @@ export function Gameboard() {
                       : "bg-white text-black text-sm rounded-md"
                   }
                   onClick={handleRoll5}
-                  disabled={rolled5}
+                  disabled={rolled5 || pauseGame}
                   hidden={heldDice5 === true}
                 >
                   Roll
@@ -1279,7 +1325,9 @@ export function Gameboard() {
                     heldDice6 === false ? handleHoldDice6 : handleUnHoldDice6
                   }
                   hidden={diceValue6 === "Roll"}
-                  disabled={lockDice === true || rollCount > heldDiceRoll6}
+                  disabled={
+                    lockDice === true || rollCount > heldDiceRoll6 || pauseGame
+                  }
                 >
                   {heldDice6 === false ? "Hold" : "Unhold"}
                 </button>
@@ -1291,7 +1339,7 @@ export function Gameboard() {
                       : "bg-white text-black text-sm rounded-md"
                   }
                   onClick={handleRoll6}
-                  disabled={rolled6}
+                  disabled={rolled6 || pauseGame}
                   hidden={heldDice6 === true}
                 >
                   Roll
@@ -1319,6 +1367,7 @@ export function Gameboard() {
                   ? false
                   : true
               }
+              disabled={pauseGame}
             >
               {lockDice === false ? "Lock Dice" : "Unlock Dice"}
             </button>
@@ -1338,6 +1387,7 @@ export function Gameboard() {
                   : handleNextRoll
               }
               hidden={nextRollLocked}
+              disabled={pauseGame}
             >
               {currentHeldDiceCount() < heldDiceCount ||
               currentHeldDiceCount() === heldDiceCount
@@ -1354,7 +1404,7 @@ export function Gameboard() {
                   : "bg-white text-black text-sm rounded-md"
               }
               onClick={handleEndTurn}
-              disabled={lockDice === false}
+              disabled={lockDice === false || pauseGame}
               hidden={
                 currentHeldDiceCount() < heldDiceCount ||
                 currentHeldDiceCount() === heldDiceCount
