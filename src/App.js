@@ -24,7 +24,7 @@ function App() {
     <div id="App" class="text-center">
       <header
         id="App-header"
-        class="bg-black min-h-screen flex flex-col items-center justify-center"
+        class="bg-gray-800 min-h-screen flex flex-col items-center justify-center"
       >
         <button
           id="game-selector"
