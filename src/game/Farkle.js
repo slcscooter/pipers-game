@@ -1,12 +1,14 @@
 import React from "react";
 import { useState } from "react";
+import { Dice } from "./components/Dice";
+import { ScoringRules } from "./components/ScoringRules";
 import {
   buttonStyle,
-  diceImage,
   flexCol,
   flexRow,
   textDisabled,
   text,
+  diceImage,
 } from "./game.css";
 import {
   rollImage,
@@ -18,7 +20,7 @@ import {
   rollImage6,
 } from "./refs/imageRefs";
 
-export function GameboardSolo() {
+export function FarkleGameBoard(props) {
   const [hideRules, setHideRules] = useState(false);
 
   function handleHideRules() {
@@ -37,6 +39,16 @@ export function GameboardSolo() {
 
   function handleUnpauseGame() {
     setPauseGame(false);
+  }
+
+  const [selectGame, setSelectGame] = useState("Solo");
+
+  function handleSelect1v1() {
+    setSelectGame("1v1");
+  }
+
+  function handleSelectSolo() {
+    setSelectGame("Solo");
   }
 
   /**
@@ -255,6 +267,7 @@ export function GameboardSolo() {
     setRolled1(false);
     setImageSource1(rollImage);
     setAltSource1("Dice 1 value is Roll");
+    setPlayer("Player 1");
     setTurnCount(1);
     setLockDice(false);
     setNextRollLocked(true);
@@ -301,8 +314,13 @@ export function GameboardSolo() {
     setTurnScore(0);
     setHeldDiceCount(0);
     setPauseGame(false);
+
+    if (selectGame === "1v1") {
+      setPlayer2Score(0);
+    }
   }
 
+  const [player, setPlayer] = useState("Player 1");
   const [turnCount, setTurnCount] = useState(1);
   const [lockDice, setLockDice] = useState(false);
   const [nextRollLocked, setNextRollLocked] = useState(true);
@@ -426,8 +444,22 @@ export function GameboardSolo() {
   }
 
   function handleEndTurn() {
-    setPlayer1Score(player1Score + turnScore);
-    setTurnCount(turnCount + 1);
+    if (selectGame === "1v1") {
+      if (player === "Player 1") {
+        setPlayer("Player 2");
+        setPlayer1Score(player1Score + turnScore);
+      }
+
+      if (player === "Player 2") {
+        setPlayer("Player 1");
+        setPlayer2Score(player2Score + turnScore);
+        setTurnCount(turnCount + 1);
+      }
+    } else {
+      setPlayer1Score(player1Score + turnScore);
+      setTurnCount(turnCount + 1);
+    }
+
     setLockDice(false);
     setNextRollLocked(true);
     setRollCount(1);
@@ -478,8 +510,22 @@ export function GameboardSolo() {
   }
 
   function handleFarkle() {
-    setPlayer1Score(player1Score + 0);
-    setTurnCount(turnCount + 1);
+    if (selectGame === "1v1") {
+      if (player === "Player 1") {
+        setPlayer("Player 2");
+        setPlayer1Score(player1Score + 0);
+      }
+
+      if (player === "Player 2") {
+        setPlayer("Player 1");
+        setPlayer2Score(player2Score + 0);
+        setTurnCount(turnCount + 1);
+      }
+    } else {
+      setPlayer1Score(player1Score + 0);
+      setTurnCount(turnCount + 1);
+    }
+
     setLockDice(false);
     setNextRollLocked(true);
     setRollCount(1);
@@ -925,9 +971,17 @@ export function GameboardSolo() {
    */
 
   const [player1Score, setPlayer1Score] = useState(0);
+  const [player2Score, setPlayer2Score] = useState(0);
 
   const winnerDeclaration = () => {
-    if (player1Score >= 10000) {
+    if (selectGame === "1v1") {
+      if (player1Score >= 10000) {
+        return "Player 1";
+      }
+      if (player2Score >= 10000) {
+        return "Player 2";
+      }
+    } else if (player1Score >= 10000) {
       return "Player 1";
     }
   };
@@ -953,7 +1007,7 @@ export function GameboardSolo() {
     );
   }
 
-  if (player1Score >= 10000) {
+  if (player1Score >= 10000 || player2Score >= 10000) {
     return (
       <>
         <WinnerDeclaration />
@@ -963,9 +1017,20 @@ export function GameboardSolo() {
     return (
       <div id="game" class={flexCol}>
         <p id="greeting" class="text-4xl">
-          Welcome to Solo Farkle!
+          {selectGame === "1v1"
+            ? "Welcome to 2-player Farkle!"
+            : "Welcome to Solo Farkle"}
         </p>
         <div id="game-level-controls" class={flexRow}>
+          <button
+            id="game-selector"
+            class={buttonStyle}
+            onClick={selectGame === "Solo" ? handleSelect1v1 : handleSelectSolo}
+          >
+            {selectGame === "Solo"
+              ? "Change game to 1v1"
+              : "Change game to Solo"}
+          </button>
           <button
             id="reset-game-button"
             class={buttonStyle}
@@ -989,191 +1054,119 @@ export function GameboardSolo() {
           </button>
         </div>
         <div id="table" class={flexRow}>
-          <img
-            id="farkle-rules"
-            class="h-96 w-96"
-            src="https://www.ultraboardgames.com/farkle/gfx/nano1.jpg"
-            alt="explanation of rules"
-            hidden={hideRules}
-          />
+          <ScoringRules hideRules={hideRules} />
           <div id="gameboard-container" class={flexCol}>
             <div id="dice-container-1" class={flexRow}>
-              <div id="dice-1" class={flexCol}>
-                <img
-                  id="dice-image-1"
-                  class={diceImage}
-                  src={imageSource1}
-                  alt={altSource1}
-                />
-                <div className="dice-actions-container-1" class={flexRow}>
-                  <button
-                    id="dice-1-hold-button"
-                    class={
-                      lockDice === true || rollCount > heldDiceRoll1
-                        ? { textDisabled }
-                        : { text }
-                    }
-                    onClick={
-                      heldDice1 === false ? handleHoldDice1 : handleUnHoldDice1
-                    }
-                    hidden={diceValue1 === "Roll"}
-                    disabled={
-                      lockDice === true ||
-                      rollCount > heldDiceRoll1 ||
-                      pauseGame
-                    }
-                  >
-                    {heldDice1 === false ? "Hold" : "Unhold"}
-                  </button>
-                </div>
-              </div>
-              <div id="dice-2" class={flexCol}>
-                <img
-                  id="dice-image-2"
-                  class={diceImage}
-                  src={imageSource2}
-                  alt={altSource2}
-                />
-                <div id="dice-actions-container-2" class={flexRow}>
-                  <button
-                    id="dice-2-hold-button"
-                    class={
-                      lockDice === true || rollCount > heldDiceRoll2
-                        ? { textDisabled }
-                        : { text }
-                    }
-                    onClick={
-                      heldDice2 === false ? handleHoldDice2 : handleUnHoldDice2
-                    }
-                    hidden={diceValue2 === "Roll"}
-                    disabled={
-                      lockDice === true ||
-                      rollCount > heldDiceRoll2 ||
-                      pauseGame
-                    }
-                  >
-                    {heldDice2 === false ? "Hold" : "Unhold"}
-                  </button>
-                </div>
-              </div>
-              <div id="dice-3" class={flexCol}>
-                <img
-                  id="dice-image-3"
-                  class={diceImage}
-                  src={imageSource3}
-                  alt={altSource3}
-                />
-                <div id="dice-actions-container-3" class={flexRow}>
-                  <button
-                    id="dice-3-hold-button"
-                    class={
-                      lockDice === true || rollCount > heldDiceRoll3
-                        ? { textDisabled }
-                        : { text }
-                    }
-                    onClick={
-                      heldDice3 === false ? handleHoldDice3 : handleUnHoldDice3
-                    }
-                    hidden={diceValue3 === "Roll"}
-                    disabled={
-                      lockDice === true ||
-                      rollCount > heldDiceRoll3 ||
-                      pauseGame
-                    }
-                  >
-                    {heldDice3 === false ? "Hold" : "Unhold"}
-                  </button>
-                </div>
-              </div>
+              <Dice
+                diceNumber={1}
+                imageSource={imageSource1}
+                altSource={altSource1}
+                lockDice={lockDice}
+                rollCount={rollCount}
+                heldDiceRoll={heldDiceRoll1}
+                heldDice={heldDice1}
+                handleHoldDice={handleHoldDice1}
+                handleUnHoldDice={handleUnHoldDice1}
+                diceValue={diceValue1}
+                pauseGame={pauseGame}
+                diceImage={diceImage}
+                flexCol={flexCol}
+                flexRow={flexRow}
+                textDisabled={textDisabled}
+                text={text}
+              />
+              <Dice
+                diceNumber={2}
+                imageSource={imageSource2}
+                altSource={altSource2}
+                lockDice={lockDice}
+                rollCount={rollCount}
+                heldDiceRoll={heldDiceRoll2}
+                heldDice={heldDice2}
+                handleHoldDice={handleHoldDice2}
+                handleUnHoldDice={handleUnHoldDice2}
+                diceValue={diceValue2}
+                pauseGame={pauseGame}
+                diceImage={diceImage}
+                flexCol={flexCol}
+                flexRow={flexRow}
+                textDisabled={textDisabled}
+                text={text}
+              />
+              <Dice
+                diceNumber={3}
+                imageSource={imageSource3}
+                altSource={altSource3}
+                lockDice={lockDice}
+                rollCount={rollCount}
+                heldDiceRoll={heldDiceRoll3}
+                heldDice={heldDice3}
+                handleHoldDice={handleHoldDice3}
+                handleUnHoldDice={handleUnHoldDice3}
+                diceValue={diceValue3}
+                pauseGame={pauseGame}
+                diceImage={diceImage}
+                flexCol={flexCol}
+                flexRow={flexRow}
+                textDisabled={textDisabled}
+                text={text}
+              />
             </div>
             <div id="dice-container-2" class={flexRow}>
-              <div id="dice-4" class={flexCol}>
-                <img
-                  id="dice-image-4"
-                  class={diceImage}
-                  src={imageSource4}
-                  alt={altSource4}
-                />
-                <div id="dice-actions-container-4" class={flexRow}>
-                  <button
-                    id="dice-4-hold-button"
-                    class={
-                      lockDice === true || rollCount > heldDiceRoll4
-                        ? { textDisabled }
-                        : { text }
-                    }
-                    onClick={
-                      heldDice4 === false ? handleHoldDice4 : handleUnHoldDice4
-                    }
-                    hidden={diceValue4 === "Roll"}
-                    disabled={
-                      lockDice === true ||
-                      rollCount > heldDiceRoll4 ||
-                      pauseGame
-                    }
-                  >
-                    {heldDice4 === false ? "Hold" : "Unhold"}
-                  </button>
-                </div>
-              </div>
-              <div id="dice-5" class={flexCol}>
-                <img
-                  id="dice-image-5"
-                  class={diceImage}
-                  src={imageSource5}
-                  alt={altSource5}
-                />
-                <div id="dice-actions-container-5" class={flexRow}>
-                  <button
-                    id="dice-5-hold-button"
-                    class={
-                      lockDice === true || rollCount > heldDiceRoll5
-                        ? { textDisabled }
-                        : { text }
-                    }
-                    onClick={
-                      heldDice5 === false ? handleHoldDice5 : handleUnHoldDice5
-                    }
-                    hidden={diceValue5 === "Roll"}
-                    disabled={
-                      lockDice === true ||
-                      rollCount > heldDiceRoll5 ||
-                      pauseGame
-                    }
-                  >
-                    {heldDice5 === false ? "Hold" : "Unhold"}
-                  </button>
-                </div>
-              </div>
-              <div id="dice-6" class={flexCol}>
-                <img
-                  id="dice-image-6"
-                  class={diceImage}
-                  src={imageSource6}
-                  alt={altSource6}
-                />
-                <div id="dice-actions-container-6" class={flexRow}>
-                  <button
-                    id="dice-6-hold-button"
-                    class={
-                      lockDice === true || rollCount > heldDiceRoll6
-                        ? { textDisabled }
-                        : { text }
-                    }
-                    onClick={
-                      heldDice6 === false ? handleHoldDice6 : handleUnHoldDice6
-                    }
-                    hidden={diceValue6 === "Roll"}
-                    disabled={
-                      lockDice === true ||
-                      rollCount > heldDiceRoll6 ||
-                      pauseGame
-                    }
-                  >
-                    {heldDice6 === false ? "Hold" : "Unhold"}
-                  </button>
-                </div>
-              </div>
+              <Dice
+                diceNumber={4}
+                imageSource={imageSource4}
+                altSource={altSource4}
+                lockDice={lockDice}
+                rollCount={rollCount}
+                heldDiceRoll={heldDiceRoll4}
+                heldDice={heldDice4}
+                handleHoldDice={handleHoldDice4}
+                handleUnHoldDice={handleUnHoldDice4}
+                diceValue={diceValue4}
+                pauseGame={pauseGame}
+                diceImage={diceImage}
+                flexCol={flexCol}
+                flexRow={flexRow}
+                textDisabled={textDisabled}
+                text={text}
+              />
+              <Dice
+                diceNumber={5}
+                imageSource={imageSource5}
+                altSource={altSource5}
+                lockDice={lockDice}
+                rollCount={rollCount}
+                heldDiceRoll={heldDiceRoll5}
+                heldDice={heldDice5}
+                handleHoldDice={handleHoldDice5}
+                handleUnHoldDice={handleUnHoldDice5}
+                diceValue={diceValue5}
+                pauseGame={pauseGame}
+                diceImage={diceImage}
+                flexCol={flexCol}
+                flexRow={flexRow}
+                textDisabled={textDisabled}
+                text={text}
+              />
+              <Dice
+                diceNumber={6}
+                imageSource={imageSource6}
+                altSource={altSource6}
+                lockDice={lockDice}
+                rollCount={rollCount}
+                heldDiceRoll={heldDiceRoll6}
+                heldDice={heldDice6}
+                handleHoldDice={handleHoldDice6}
+                handleUnHoldDice={handleUnHoldDice6}
+                diceValue={diceValue6}
+                pauseGame={pauseGame}
+                diceImage={diceImage}
+                flexCol={flexCol}
+                flexRow={flexRow}
+                textDisabled={textDisabled}
+                text={text}
+              />
             </div>
             <div id="dice-container-3" class={flexRow}>
               <button
@@ -1197,7 +1190,7 @@ export function GameboardSolo() {
               <RollScore />
               <BankedScore />
               <p className="turn-player-roll-text">
-                Turn: {turnCount}, Roll: {rollCount}
+                Turn: {turnCount}, Player: {player}, Roll: {rollCount}
               </p>
               <button
                 id="lock-dice-button"
@@ -1220,9 +1213,7 @@ export function GameboardSolo() {
               <button
                 id="next-roll-button"
                 class={
-                  currentHeldDiceCount() <= heldDiceCount
-                    ? "{text} opacity:50"
-                    : { text }
+                  currentHeldDiceCount() <= heldDiceCount ? textDisabled : text
                 }
                 onClick={
                   currentHeldDiceCount() < heldDiceCount ||
@@ -1244,7 +1235,7 @@ export function GameboardSolo() {
               </button>
               <button
                 id="end-turn-button"
-                class={lockDice === false ? { textDisabled } : { text }}
+                class={lockDice === false ? textDisabled : text}
                 onClick={handleEndTurn}
                 disabled={lockDice === false || pauseGame}
                 hidden={
@@ -1257,6 +1248,9 @@ export function GameboardSolo() {
             </div>
             <div className="game-scores-container">
               <p className="game-score-text">Player 1 Score: {player1Score}</p>
+              <p className="game-score-text" hidden={selectGame === "Solo"}>
+                Player 2 Score: {player2Score}
+              </p>
             </div>
           </div>
         </div>
