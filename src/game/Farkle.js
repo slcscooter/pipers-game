@@ -6,8 +6,8 @@ import {
   buttonStyle,
   flexCol,
   flexRow,
-  textDisabled,
-  text,
+  buttonStyleDisabledSM,
+  buttonStyleSM,
   diceImage,
 } from "./game.css";
 import {
@@ -184,36 +184,30 @@ export function FarkleGameBoard(props) {
     const roll5 = getRandomInt(6) + 1;
     const roll6 = getRandomInt(6) + 1;
 
-    function srcGen(x) {
-      if (x === "Roll") {
+    function srcGen(roll) {
+      if (roll === "Roll") {
         return rollImage;
-      } else if (x === 6) {
+      } else if (roll === 6) {
         return rollImage6;
-      } else if (x === 5) {
+      } else if (roll === 5) {
         return rollImage5;
-      } else if (x === 4) {
+      } else if (roll === 4) {
         return rollImage4;
-      } else if (x === 3) {
+      } else if (roll === 3) {
         return rollImage3;
-      } else if (x === 2) {
+      } else if (roll === 2) {
         return rollImage2;
-      } else if (x === 1) {
+      } else if (roll === 1) {
         return rollImage1;
       }
     }
-    const src1 = srcGen(roll1);
-    const src2 = srcGen(roll2);
-    const src3 = srcGen(roll3);
-    const src4 = srcGen(roll4);
-    const src5 = srcGen(roll5);
-    const src6 = srcGen(roll6);
 
     if (heldDice1 === false) {
       setDiceValue1(roll1);
       setDiceScore1(roll1);
       setRolled1(true);
       setAltSource1(`Dice 1 value is ${roll1}`);
-      setImageSource1(src1);
+      setImageSource1(srcGen(roll1));
     }
 
     if (heldDice2 === false) {
@@ -221,7 +215,7 @@ export function FarkleGameBoard(props) {
       setDiceScore2(roll2);
       setRolled2(true);
       setAltSource2(`Dice 2 value is ${roll2}`);
-      setImageSource2(src2);
+      setImageSource2(srcGen(roll2));
     }
 
     if (heldDice3 === false) {
@@ -229,7 +223,7 @@ export function FarkleGameBoard(props) {
       setDiceScore3(roll3);
       setRolled3(true);
       setAltSource3(`Dice 3 value is ${roll3}`);
-      setImageSource3(src3);
+      setImageSource3(srcGen(roll3));
     }
 
     if (heldDice4 === false) {
@@ -237,7 +231,7 @@ export function FarkleGameBoard(props) {
       setDiceScore4(roll4);
       setRolled4(true);
       setAltSource4(`Dice 4 value is ${roll4}`);
-      setImageSource4(src4);
+      setImageSource4(srcGen(roll4));
     }
 
     if (heldDice5 === false) {
@@ -245,7 +239,7 @@ export function FarkleGameBoard(props) {
       setDiceScore5(roll5);
       setRolled5(true);
       setAltSource5(`Dice 5 value is ${roll5}`);
-      setImageSource5(src5);
+      setImageSource5(srcGen(roll5));
     }
 
     if (heldDice6 === false) {
@@ -253,7 +247,7 @@ export function FarkleGameBoard(props) {
       setDiceScore6(roll6);
       setRolled6(true);
       setAltSource6(`Dice 6 value is ${roll6}`);
-      setImageSource6(src6);
+      setImageSource6(srcGen(roll6));
     }
   }
 
@@ -328,7 +322,7 @@ export function FarkleGameBoard(props) {
   const [turnScore, setTurnScore] = useState(0);
   const [heldDiceCount, setHeldDiceCount] = useState(0);
 
-  let currentHeldDiceCount = () => {
+  const currentHeldDiceCount = () => {
     const dice1 = heldDice1 === true ? 1 : 0;
     const dice2 = heldDice2 === true ? 1 : 0;
     const dice3 = heldDice3 === true ? 1 : 0;
@@ -616,7 +610,7 @@ export function FarkleGameBoard(props) {
   const rollScore = scoreMap();
 
   function scoreMap() {
-    let bankedDiceCount = bankedDiceList.length;
+    const bankedDiceCount = bankedDiceList.length;
 
     // dx is the number of x rolled
     const d1 = bankedDiceList.filter((x) => x === 1).length;
@@ -1072,8 +1066,8 @@ export function FarkleGameBoard(props) {
                 diceImage={diceImage}
                 flexCol={flexCol}
                 flexRow={flexRow}
-                textDisabled={textDisabled}
-                text={text}
+                textDisabled={buttonStyleDisabledSM}
+                text={buttonStyleSM}
               />
               <Dice
                 diceNumber={2}
@@ -1090,8 +1084,8 @@ export function FarkleGameBoard(props) {
                 diceImage={diceImage}
                 flexCol={flexCol}
                 flexRow={flexRow}
-                textDisabled={textDisabled}
-                text={text}
+                textDisabled={buttonStyleDisabledSM}
+                text={buttonStyleSM}
               />
               <Dice
                 diceNumber={3}
@@ -1108,8 +1102,8 @@ export function FarkleGameBoard(props) {
                 diceImage={diceImage}
                 flexCol={flexCol}
                 flexRow={flexRow}
-                textDisabled={textDisabled}
-                text={text}
+                textDisabled={buttonStyleDisabledSM}
+                text={buttonStyleSM}
               />
             </div>
             <div id="dice-container-2" class={flexRow}>
@@ -1128,8 +1122,8 @@ export function FarkleGameBoard(props) {
                 diceImage={diceImage}
                 flexCol={flexCol}
                 flexRow={flexRow}
-                textDisabled={textDisabled}
-                text={text}
+                textDisabled={buttonStyleDisabledSM}
+                text={buttonStyleSM}
               />
               <Dice
                 diceNumber={5}
@@ -1146,8 +1140,8 @@ export function FarkleGameBoard(props) {
                 diceImage={diceImage}
                 flexCol={flexCol}
                 flexRow={flexRow}
-                textDisabled={textDisabled}
-                text={text}
+                textDisabled={buttonStyleDisabledSM}
+                text={buttonStyleSM}
               />
               <Dice
                 diceNumber={6}
@@ -1164,14 +1158,14 @@ export function FarkleGameBoard(props) {
                 diceImage={diceImage}
                 flexCol={flexCol}
                 flexRow={flexRow}
-                textDisabled={textDisabled}
-                text={text}
+                textDisabled={buttonStyleDisabledSM}
+                text={buttonStyleSM}
               />
             </div>
             <div id="dice-container-3" class={flexRow}>
               <button
                 id="roll-available-dice"
-                class={text}
+                class={buttonStyleSM}
                 onClick={rollAllAvailableDice}
                 hidden={
                   (rolled1 &&
@@ -1186,15 +1180,15 @@ export function FarkleGameBoard(props) {
                 Roll dice
               </button>
             </div>
-            <div className="turn-actions-container">
+            <div id="turn-actions-container">
               <RollScore />
               <BankedScore />
-              <p className="turn-player-roll-text">
+              <p id="turn-player-roll-text">
                 Turn: {turnCount}, Player: {player}, Roll: {rollCount}
               </p>
               <button
                 id="lock-dice-button"
-                class={text}
+                class={buttonStyleSM}
                 onClick={lockDice === false ? handleLockDice : handleUnlockDice}
                 hidden={
                   heldDice1 === true ||
@@ -1213,7 +1207,9 @@ export function FarkleGameBoard(props) {
               <button
                 id="next-roll-button"
                 class={
-                  currentHeldDiceCount() <= heldDiceCount ? textDisabled : text
+                  currentHeldDiceCount() <= heldDiceCount
+                    ? buttonStyleDisabledSM
+                    : buttonStyleSM
                 }
                 onClick={
                   currentHeldDiceCount() < heldDiceCount ||
@@ -1235,7 +1231,9 @@ export function FarkleGameBoard(props) {
               </button>
               <button
                 id="end-turn-button"
-                class={lockDice === false ? textDisabled : text}
+                class={
+                  lockDice === false ? buttonStyleDisabledSM : buttonStyleSM
+                }
                 onClick={handleEndTurn}
                 disabled={lockDice === false || pauseGame}
                 hidden={
@@ -1246,9 +1244,9 @@ export function FarkleGameBoard(props) {
                 End Turn
               </button>
             </div>
-            <div className="game-scores-container">
-              <p className="game-score-text">Player 1 Score: {player1Score}</p>
-              <p className="game-score-text" hidden={selectGame === "Solo"}>
+            <div id="game-scores-container">
+              <p id="game-score-text">Player 1 Score: {player1Score}</p>
+              <p id="game-score-text" hidden={selectGame === "Solo"}>
                 Player 2 Score: {player2Score}
               </p>
             </div>
