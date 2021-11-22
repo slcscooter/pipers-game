@@ -21,36 +21,6 @@ import {
 } from "./refs/imageRefs";
 
 export function FarkleGameBoard(props) {
-  const [hideRules, setHideRules] = useState(false);
-
-  function handleHideRules() {
-    setHideRules(true);
-  }
-
-  function handleShowRules() {
-    setHideRules(false);
-  }
-
-  const [pauseGame, setPauseGame] = useState(false);
-
-  function handlePauseGame() {
-    setPauseGame(true);
-  }
-
-  function handleUnpauseGame() {
-    setPauseGame(false);
-  }
-
-  const [selectGame, setSelectGame] = useState("Solo");
-
-  function handleSelect1v1() {
-    setSelectGame("1v1");
-  }
-
-  function handleSelectSolo() {
-    setSelectGame("Solo");
-  }
-
   /**
    * Dice Actions
    */
@@ -254,6 +224,36 @@ export function FarkleGameBoard(props) {
   /**
    * Game Level Actions
    */
+
+  const [hideRules, setHideRules] = useState(false);
+
+  function handleHideRules() {
+    setHideRules(true);
+  }
+
+  function handleShowRules() {
+    setHideRules(false);
+  }
+
+  const [pauseGame, setPauseGame] = useState(false);
+
+  function handlePauseGame() {
+    setPauseGame(true);
+  }
+
+  function handleUnpauseGame() {
+    setPauseGame(false);
+  }
+
+  const [selectGame, setSelectGame] = useState("Solo");
+
+  function handleSelect1v1() {
+    setSelectGame("1v1");
+  }
+
+  function handleSelectSolo() {
+    setSelectGame("Solo");
+  }
 
   function handleResetGame() {
     setHeldDice1(false);
