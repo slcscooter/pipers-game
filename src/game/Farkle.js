@@ -399,40 +399,52 @@ export function FarkleGameBoard(props) {
 
   function handleBankRoll() {
     setLockDice(false);
-    setNextRollLocked(false);
+    setNextRollLocked(true);
     setRollCount(rollCount + 1);
     setTurnScore(turnScore + rollScore);
-    setHeldDiceCount(0);
     setRolled1(false);
     setDiceValue1("Roll");
     setImageSource1(rollImage);
     setAltSource1("Dice 1 value is Roll");
     setDiceScore1(0);
+    setHeldDice1(false);
+    setHeldDiceRoll1(undefined);
     setRolled2(false);
     setDiceValue2("Roll");
     setImageSource2(rollImage);
     setAltSource2("Dice 2 value is Roll");
     setDiceScore2(0);
+    setHeldDice2(false);
+    setHeldDiceRoll2(undefined);
     setRolled3(false);
     setDiceValue3("Roll");
     setImageSource3(rollImage);
     setAltSource3("Dice 3 value is Roll");
     setDiceScore3(0);
+    setHeldDice3(false);
+    setHeldDiceRoll3(undefined);
     setRolled4(false);
     setDiceValue4("Roll");
     setImageSource4(rollImage);
     setAltSource4("Dice 4 value is Roll");
     setDiceScore4(0);
+    setHeldDice4(false);
+    setHeldDiceRoll4(undefined);
     setRolled5(false);
     setDiceValue5("Roll");
     setImageSource5(rollImage);
     setAltSource5("Dice 5 value is Roll");
     setDiceScore5(0);
+    setHeldDice5(false);
+    setHeldDiceRoll5(undefined);
     setRolled6(false);
     setDiceValue6("Roll");
     setImageSource6(rollImage);
     setAltSource6("Dice 6 value is Roll");
     setDiceScore6(0);
+    setHeldDice6(false);
+    setHeldDiceRoll6(undefined);
+    setHeldDiceCount(currentHeldDiceCount());
   }
 
   function handleEndTurn() {
@@ -712,6 +724,43 @@ export function FarkleGameBoard(props) {
         d5 === 1
       ) {
         return 1150;
+      }
+
+      // [x,x,x,1,1,5] = [xxx] + 250 (example: [2,2,2,1,1,5] = 200 + 250 = 450) note x !== 1 && x !==5
+      if (
+        (d2 === 3 || d3 === 3 || d4 === 3 || d6 === 3) &&
+        d1 === 2 &&
+        d5 === 1
+      ) {
+        if (d2 === 3) {
+          return 450;
+        }
+        if (d3 === 3) {
+          return 550;
+        }
+        if (d4 === 3) {
+          return 650;
+        }
+        if (d6 === 3) {
+          return 850;
+        }
+      }
+
+      // [x,x,x,1,5,5] = [xxx] + 200 (example: [2,2,2,1,5,5] = 200 + 200 = 400) note x !== 1 && x !==5
+      if (
+        (d2 === 3 || d3 === 3 || d4 === 3 || d6 === 3) &&
+        d1 === 1 &&
+        d5 === 2
+      ) {
+        if (d2 === 3) {
+          return 400;
+        } else if (d3 === 3) {
+          return 500;
+        } else if (d4 === 3) {
+          return 600;
+        } else if (d6 === 3) {
+          return 800;
+        }
       }
     }
 
