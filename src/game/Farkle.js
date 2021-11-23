@@ -444,7 +444,7 @@ export function FarkleGameBoard(props) {
     setDiceScore6(0);
     setHeldDice6(false);
     setHeldDiceRoll6(undefined);
-    setHeldDiceCount(currentHeldDiceCount());
+    setHeldDiceCount(0);
   }
 
   function handleEndTurn() {
