@@ -305,7 +305,6 @@ export function FarkleGameBoard(props) {
     setAltSource6("Dice 6 value is Roll");
     setDiceScore6(0);
     setHeldDiceRoll6(undefined);
-    setTurnScore(0);
     setHeldDiceCount(0);
     setPauseGame(false);
 
@@ -401,10 +400,10 @@ export function FarkleGameBoard(props) {
 
   function handleBankRoll() {
     setLockDice(false);
-    setNextRollLocked(true);
+    setNextRollLocked(false);
     setRollCount(rollCount + 1);
     setTurnScore(turnScore + rollScore);
-    setHeldDiceCount(currentHeldDiceCount());
+    setHeldDiceCount(0);
     setRolled1(false);
     setDiceValue1("Roll");
     setImageSource1(rollImage);
@@ -441,16 +440,18 @@ export function FarkleGameBoard(props) {
     if (selectGame === "1v1") {
       if (player === "Player 1") {
         setPlayer("Player 2");
-        setPlayer1Score(player1Score + turnScore);
+        setPlayer1Score(player1Score + turnScore + rollScore);
       }
 
       if (player === "Player 2") {
         setPlayer("Player 1");
-        setPlayer2Score(player2Score + turnScore);
+        setPlayer2Score(player2Score + turnScore + rollScore);
         setTurnCount(turnCount + 1);
       }
-    } else {
-      setPlayer1Score(player1Score + turnScore);
+    }
+
+    if (selectGame === "Solo") {
+      setPlayer1Score(player1Score + turnScore + rollScore);
       setTurnCount(turnCount + 1);
     }
 
@@ -507,16 +508,15 @@ export function FarkleGameBoard(props) {
     if (selectGame === "1v1") {
       if (player === "Player 1") {
         setPlayer("Player 2");
-        setPlayer1Score(player1Score + 0);
       }
 
       if (player === "Player 2") {
         setPlayer("Player 1");
-        setPlayer2Score(player2Score + 0);
         setTurnCount(turnCount + 1);
       }
-    } else {
-      setPlayer1Score(player1Score + 0);
+    }
+
+    if (selectGame === "Solo") {
       setTurnCount(turnCount + 1);
     }
 
@@ -850,6 +850,9 @@ export function FarkleGameBoard(props) {
         (d1 === 3 || d2 === 3 || d3 === 3 || d4 === 3 || d6 === 3) &&
         d5 === 1
       ) {
+        if (d1 === 3) {
+          return 350;
+        }
         if (d2 === 3) {
           return 250;
         }
@@ -858,9 +861,6 @@ export function FarkleGameBoard(props) {
         }
         if (d4 === 3) {
           return 450;
-        }
-        if (d5 === 3) {
-          return 550;
         }
         if (d6 === 3) {
           return 650;
@@ -1215,7 +1215,7 @@ export function FarkleGameBoard(props) {
                   currentHeldDiceCount() < heldDiceCount ||
                   currentHeldDiceCount() === heldDiceCount
                     ? handleFarkle
-                    : currentHeldDiceCount() === heldDiceCount && rollScore >= 1
+                    : currentHeldDiceCount() === 6 && rollScore >= 1
                     ? handleBankRoll
                     : handleNextRoll
                 }
@@ -1225,23 +1225,21 @@ export function FarkleGameBoard(props) {
                 {currentHeldDiceCount() < heldDiceCount ||
                 currentHeldDiceCount() === heldDiceCount
                   ? "FARKLED!"
-                  : currentHeldDiceCount() === heldDiceCount && rollScore >= 1
+                  : currentHeldDiceCount() === 6 && rollScore >= 1
                   ? "Bank & Reset Dice"
                   : "Next roll"}
               </button>
               <button
                 id="end-turn-button"
-                class={
-                  lockDice === false ? buttonStyleDisabledSM : buttonStyleSM
-                }
-                onClick={handleEndTurn}
-                disabled={lockDice === false || pauseGame}
+                class={pauseGame ? buttonStyleDisabledSM : buttonStyleSM}
+                onClick={rollScore === undefined ? handleFarkle : handleEndTurn}
+                disabled={pauseGame}
                 hidden={
                   currentHeldDiceCount() < heldDiceCount ||
                   currentHeldDiceCount() === heldDiceCount
                 }
               >
-                End Turn
+                {rollScore === undefined ? "FARKLED!" : "End Turn"}
               </button>
             </div>
             <div id="game-scores-container">
