@@ -1129,191 +1129,192 @@ export function FarkleGameBoard(props) {
             Pause game
           </button>
         </div>
-        <div id="table" class={flexRow}>
-          <div id="gameboard-container" class={flexCol}>
-            <div id="dice-container-1" class={flexRow}>
-              <Dice
-                diceNumber={1}
-                imageSource={imageSource1}
-                altSource={altSource1}
-                lockDice={lockDice}
-                rollCount={rollCount}
-                heldDiceRoll={heldDiceRoll1}
-                heldDice={heldDice1}
-                handleHoldDice={handleHoldDice1}
-                handleUnHoldDice={handleUnHoldDice1}
-                diceValue={diceValue1}
-                diceImage={diceImage}
-                flexCol={flexCol}
-                flexRow={flexRow}
-                textDisabled={buttonStyleDisabledSM}
-                text={buttonStyleSM}
-              />
-              <Dice
-                diceNumber={2}
-                imageSource={imageSource2}
-                altSource={altSource2}
-                lockDice={lockDice}
-                rollCount={rollCount}
-                heldDiceRoll={heldDiceRoll2}
-                heldDice={heldDice2}
-                handleHoldDice={handleHoldDice2}
-                handleUnHoldDice={handleUnHoldDice2}
-                diceValue={diceValue2}
-                diceImage={diceImage}
-                flexCol={flexCol}
-                flexRow={flexRow}
-                textDisabled={buttonStyleDisabledSM}
-                text={buttonStyleSM}
-              />
-              <Dice
-                diceNumber={3}
-                imageSource={imageSource3}
-                altSource={altSource3}
-                lockDice={lockDice}
-                rollCount={rollCount}
-                heldDiceRoll={heldDiceRoll3}
-                heldDice={heldDice3}
-                handleHoldDice={handleHoldDice3}
-                handleUnHoldDice={handleUnHoldDice3}
-                diceValue={diceValue3}
-                diceImage={diceImage}
-                flexCol={flexCol}
-                flexRow={flexRow}
-                textDisabled={buttonStyleDisabledSM}
-                text={buttonStyleSM}
-              />
-            </div>
-            <div id="dice-container-2" class={flexRow}>
-              <Dice
-                diceNumber={4}
-                imageSource={imageSource4}
-                altSource={altSource4}
-                lockDice={lockDice}
-                rollCount={rollCount}
-                heldDiceRoll={heldDiceRoll4}
-                heldDice={heldDice4}
-                handleHoldDice={handleHoldDice4}
-                handleUnHoldDice={handleUnHoldDice4}
-                diceValue={diceValue4}
-                diceImage={diceImage}
-                flexCol={flexCol}
-                flexRow={flexRow}
-                textDisabled={buttonStyleDisabledSM}
-                text={buttonStyleSM}
-              />
-              <Dice
-                diceNumber={5}
-                imageSource={imageSource5}
-                altSource={altSource5}
-                lockDice={lockDice}
-                rollCount={rollCount}
-                heldDiceRoll={heldDiceRoll5}
-                heldDice={heldDice5}
-                handleHoldDice={handleHoldDice5}
-                handleUnHoldDice={handleUnHoldDice5}
-                diceValue={diceValue5}
-                diceImage={diceImage}
-                flexCol={flexCol}
-                flexRow={flexRow}
-                textDisabled={buttonStyleDisabledSM}
-                text={buttonStyleSM}
-              />
-              <Dice
-                diceNumber={6}
-                imageSource={imageSource6}
-                altSource={altSource6}
-                lockDice={lockDice}
-                rollCount={rollCount}
-                heldDiceRoll={heldDiceRoll6}
-                heldDice={heldDice6}
-                handleHoldDice={handleHoldDice6}
-                handleUnHoldDice={handleUnHoldDice6}
-                diceValue={diceValue6}
-                diceImage={diceImage}
-                flexCol={flexCol}
-                flexRow={flexRow}
-                textDisabled={buttonStyleDisabledSM}
-                text={buttonStyleSM}
-              />
-            </div>
-            <div id="dice-container-3" class={flexRow}>
-              <button
-                id="roll-available-dice"
-                class={buttonStyleSM}
-                onClick={rollAllAvailableDice}
-                hidden={
-                  rolled1 && rolled2 && rolled3 && rolled4 && rolled5 && rolled6
-                }
-              >
-                Roll dice
-              </button>
-            </div>
-            <div id="turn-actions-container">
-              <RollScore />
-              <BankedScore />
-              <p id="turn-player-roll-text">
-                Turn: {turnCount}, Player: {player}, Roll: {rollCount}
-              </p>
-              <button
-                id="lock-dice-button"
-                class={buttonStyleSM}
-                onClick={lockDice === false ? handleLockDice : handleUnlockDice}
-                hidden={
-                  heldDice1 === true ||
-                  heldDice2 === true ||
-                  heldDice3 === true ||
-                  heldDice4 === true ||
-                  heldDice5 === true ||
-                  heldDice6 === true
-                    ? false
-                    : true
-                }
-              >
-                {lockDice === false ? "Lock Dice" : "Unlock Dice"}
-              </button>
-              <button
-                id="next-roll-button"
-                class={
-                  currentHeldDiceCount() <= heldDiceCount
-                    ? buttonStyleDisabledSM
-                    : buttonStyleSM
-                }
-                onClick={
-                  currentHeldDiceCount() < heldDiceCount ||
-                  currentHeldDiceCount() === heldDiceCount
-                    ? handleFarkle
-                    : currentHeldDiceCount() === 6 && rollScore >= 1
-                    ? handleBankRoll
-                    : handleNextRoll
-                }
-                hidden={nextRollLocked}
-              >
-                {currentHeldDiceCount() < heldDiceCount ||
+        <div
+          id="gameboard-container"
+          class={flexCol + " items-center content-center justify-center"}
+        >
+          <div id="dice-container-1" class={flexRow}>
+            <Dice
+              diceNumber={1}
+              imageSource={imageSource1}
+              altSource={altSource1}
+              lockDice={lockDice}
+              rollCount={rollCount}
+              heldDiceRoll={heldDiceRoll1}
+              heldDice={heldDice1}
+              handleHoldDice={handleHoldDice1}
+              handleUnHoldDice={handleUnHoldDice1}
+              diceValue={diceValue1}
+              diceImage={diceImage}
+              flexCol={flexCol}
+              flexRow={flexRow}
+              textDisabled={buttonStyleDisabledSM}
+              text={buttonStyleSM}
+            />
+            <Dice
+              diceNumber={2}
+              imageSource={imageSource2}
+              altSource={altSource2}
+              lockDice={lockDice}
+              rollCount={rollCount}
+              heldDiceRoll={heldDiceRoll2}
+              heldDice={heldDice2}
+              handleHoldDice={handleHoldDice2}
+              handleUnHoldDice={handleUnHoldDice2}
+              diceValue={diceValue2}
+              diceImage={diceImage}
+              flexCol={flexCol}
+              flexRow={flexRow}
+              textDisabled={buttonStyleDisabledSM}
+              text={buttonStyleSM}
+            />
+            <Dice
+              diceNumber={3}
+              imageSource={imageSource3}
+              altSource={altSource3}
+              lockDice={lockDice}
+              rollCount={rollCount}
+              heldDiceRoll={heldDiceRoll3}
+              heldDice={heldDice3}
+              handleHoldDice={handleHoldDice3}
+              handleUnHoldDice={handleUnHoldDice3}
+              diceValue={diceValue3}
+              diceImage={diceImage}
+              flexCol={flexCol}
+              flexRow={flexRow}
+              textDisabled={buttonStyleDisabledSM}
+              text={buttonStyleSM}
+            />
+          </div>
+          <div id="dice-container-2" class={flexRow}>
+            <Dice
+              diceNumber={4}
+              imageSource={imageSource4}
+              altSource={altSource4}
+              lockDice={lockDice}
+              rollCount={rollCount}
+              heldDiceRoll={heldDiceRoll4}
+              heldDice={heldDice4}
+              handleHoldDice={handleHoldDice4}
+              handleUnHoldDice={handleUnHoldDice4}
+              diceValue={diceValue4}
+              diceImage={diceImage}
+              flexCol={flexCol}
+              flexRow={flexRow}
+              textDisabled={buttonStyleDisabledSM}
+              text={buttonStyleSM}
+            />
+            <Dice
+              diceNumber={5}
+              imageSource={imageSource5}
+              altSource={altSource5}
+              lockDice={lockDice}
+              rollCount={rollCount}
+              heldDiceRoll={heldDiceRoll5}
+              heldDice={heldDice5}
+              handleHoldDice={handleHoldDice5}
+              handleUnHoldDice={handleUnHoldDice5}
+              diceValue={diceValue5}
+              diceImage={diceImage}
+              flexCol={flexCol}
+              flexRow={flexRow}
+              textDisabled={buttonStyleDisabledSM}
+              text={buttonStyleSM}
+            />
+            <Dice
+              diceNumber={6}
+              imageSource={imageSource6}
+              altSource={altSource6}
+              lockDice={lockDice}
+              rollCount={rollCount}
+              heldDiceRoll={heldDiceRoll6}
+              heldDice={heldDice6}
+              handleHoldDice={handleHoldDice6}
+              handleUnHoldDice={handleUnHoldDice6}
+              diceValue={diceValue6}
+              diceImage={diceImage}
+              flexCol={flexCol}
+              flexRow={flexRow}
+              textDisabled={buttonStyleDisabledSM}
+              text={buttonStyleSM}
+            />
+          </div>
+          <div id="dice-container-3" class={flexRow}>
+            <button
+              id="roll-available-dice"
+              class={buttonStyleSM}
+              onClick={rollAllAvailableDice}
+              hidden={
+                rolled1 && rolled2 && rolled3 && rolled4 && rolled5 && rolled6
+              }
+            >
+              Roll dice
+            </button>
+          </div>
+          <div id="turn-actions-container">
+            <RollScore />
+            <BankedScore />
+            <p id="turn-player-roll-text">
+              Turn: {turnCount}, Player: {player}, Roll: {rollCount}
+            </p>
+            <button
+              id="lock-dice-button"
+              class={buttonStyleSM}
+              onClick={lockDice === false ? handleLockDice : handleUnlockDice}
+              hidden={
+                heldDice1 === true ||
+                heldDice2 === true ||
+                heldDice3 === true ||
+                heldDice4 === true ||
+                heldDice5 === true ||
+                heldDice6 === true
+                  ? false
+                  : true
+              }
+            >
+              {lockDice === false ? "Lock Dice" : "Unlock Dice"}
+            </button>
+            <button
+              id="next-roll-button"
+              class={
+                currentHeldDiceCount() <= heldDiceCount
+                  ? buttonStyleDisabledSM
+                  : buttonStyleSM
+              }
+              onClick={
+                currentHeldDiceCount() < heldDiceCount ||
                 currentHeldDiceCount() === heldDiceCount
-                  ? "FARKLED!"
+                  ? handleFarkle
                   : currentHeldDiceCount() === 6 && rollScore >= 1
-                  ? "Bank & Reset Dice"
-                  : "Next roll"}
-              </button>
-              <button
-                id="end-turn-button"
-                class={buttonStyleSM}
-                onClick={rollScore === undefined ? handleFarkle : handleEndTurn}
-                hidden={
-                  currentHeldDiceCount() < heldDiceCount ||
-                  currentHeldDiceCount() === heldDiceCount
-                }
-              >
-                {rollScore === undefined ? "FARKLED!" : "End Turn"}
-              </button>
-            </div>
-            <div id="game-scores-container">
-              <p id="game-score-text">Player 1 Score: {player1Score}</p>
-              <p id="game-score-text" hidden={selectGame === "Solo"}>
-                Player 2 Score: {player2Score}
-              </p>
-            </div>
+                  ? handleBankRoll
+                  : handleNextRoll
+              }
+              hidden={nextRollLocked}
+            >
+              {currentHeldDiceCount() < heldDiceCount ||
+              currentHeldDiceCount() === heldDiceCount
+                ? "FARKLED!"
+                : currentHeldDiceCount() === 6 && rollScore >= 1
+                ? "Bank & Reset Dice"
+                : "Next roll"}
+            </button>
+            <button
+              id="end-turn-button"
+              class={buttonStyleSM}
+              onClick={rollScore === undefined ? handleFarkle : handleEndTurn}
+              hidden={
+                currentHeldDiceCount() < heldDiceCount ||
+                currentHeldDiceCount() === heldDiceCount
+              }
+            >
+              {rollScore === undefined ? "FARKLED!" : "End Turn"}
+            </button>
+          </div>
+          <div id="game-scores-container">
+            <p id="game-score-text">Player 1 Score: {player1Score}</p>
+            <p id="game-score-text" hidden={selectGame === "Solo"}>
+              Player 2 Score: {player2Score}
+            </p>
           </div>
         </div>
       </div>
