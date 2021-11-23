@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Dice } from "./components/Dice";
-import { ScoringRules } from "./components/ScoringRules";
+import { ScoringRulesRefined } from "./components/ScoringRules";
 import {
   buttonStyle,
   flexCol,
@@ -225,7 +225,7 @@ export function FarkleGameBoard(props) {
    * Game Level Actions
    */
 
-  const [hideRules, setHideRules] = useState(false);
+  const [hideRules, setHideRules] = useState(true);
 
   function handleHideRules() {
     setHideRules(true);
@@ -306,7 +306,6 @@ export function FarkleGameBoard(props) {
     setDiceScore6(0);
     setHeldDiceRoll6(undefined);
     setHeldDiceCount(0);
-    setPauseGame(false);
 
     if (selectGame === "1v1") {
       setPlayer2Score(0);
@@ -1001,7 +1000,41 @@ export function FarkleGameBoard(props) {
     );
   }
 
-  if (player1Score >= 10000 || player2Score >= 10000) {
+  if (pauseGame) {
+    return (
+      <>
+        <div id="game-paused-container" class={flexCol}>
+          <p>You have paused the game! Please unpause to continue!</p>
+          <button
+            id="resume-game-button"
+            class={buttonStyle}
+            onClick={handleUnpauseGame}
+          >
+            Unpause Game
+          </button>
+        </div>
+      </>
+    );
+  } else if (!hideRules) {
+    return (
+      <>
+        <div id="rules-container" class={flexCol}>
+          <button
+            id="close-rules-button"
+            class={buttonStyle}
+            onClick={handleHideRules}
+          >
+            Close Rules
+          </button>
+          <ScoringRulesRefined
+            flexRow={flexRow}
+            flexCol={flexCol}
+            buttonStyle={buttonStyle}
+          />
+        </div>
+      </>
+    );
+  } else if (player1Score >= 10000 || player2Score >= 10000) {
     return (
       <>
         <WinnerDeclaration />
@@ -1035,20 +1068,19 @@ export function FarkleGameBoard(props) {
           <button
             id="rules-button"
             class={buttonStyle}
-            onClick={hideRules ? handleShowRules : handleHideRules}
+            onClick={handleShowRules}
           >
-            {hideRules ? "Show rules" : "Hide Rules"}
+            Show Rules
           </button>
           <button
             id="pause-game-button"
             class={buttonStyle}
-            onClick={pauseGame ? handleUnpauseGame : handlePauseGame}
+            onClick={handlePauseGame}
           >
-            {pauseGame ? "Unpause game" : "Pause game"}
+            Pause game
           </button>
         </div>
         <div id="table" class={flexRow}>
-          <ScoringRules hideRules={hideRules} />
           <div id="gameboard-container" class={flexCol}>
             <div id="dice-container-1" class={flexRow}>
               <Dice
@@ -1062,7 +1094,6 @@ export function FarkleGameBoard(props) {
                 handleHoldDice={handleHoldDice1}
                 handleUnHoldDice={handleUnHoldDice1}
                 diceValue={diceValue1}
-                pauseGame={pauseGame}
                 diceImage={diceImage}
                 flexCol={flexCol}
                 flexRow={flexRow}
@@ -1080,7 +1111,6 @@ export function FarkleGameBoard(props) {
                 handleHoldDice={handleHoldDice2}
                 handleUnHoldDice={handleUnHoldDice2}
                 diceValue={diceValue2}
-                pauseGame={pauseGame}
                 diceImage={diceImage}
                 flexCol={flexCol}
                 flexRow={flexRow}
@@ -1098,7 +1128,6 @@ export function FarkleGameBoard(props) {
                 handleHoldDice={handleHoldDice3}
                 handleUnHoldDice={handleUnHoldDice3}
                 diceValue={diceValue3}
-                pauseGame={pauseGame}
                 diceImage={diceImage}
                 flexCol={flexCol}
                 flexRow={flexRow}
@@ -1118,7 +1147,6 @@ export function FarkleGameBoard(props) {
                 handleHoldDice={handleHoldDice4}
                 handleUnHoldDice={handleUnHoldDice4}
                 diceValue={diceValue4}
-                pauseGame={pauseGame}
                 diceImage={diceImage}
                 flexCol={flexCol}
                 flexRow={flexRow}
@@ -1136,7 +1164,6 @@ export function FarkleGameBoard(props) {
                 handleHoldDice={handleHoldDice5}
                 handleUnHoldDice={handleUnHoldDice5}
                 diceValue={diceValue5}
-                pauseGame={pauseGame}
                 diceImage={diceImage}
                 flexCol={flexCol}
                 flexRow={flexRow}
@@ -1154,7 +1181,6 @@ export function FarkleGameBoard(props) {
                 handleHoldDice={handleHoldDice6}
                 handleUnHoldDice={handleUnHoldDice6}
                 diceValue={diceValue6}
-                pauseGame={pauseGame}
                 diceImage={diceImage}
                 flexCol={flexCol}
                 flexRow={flexRow}
@@ -1168,13 +1194,7 @@ export function FarkleGameBoard(props) {
                 class={buttonStyleSM}
                 onClick={rollAllAvailableDice}
                 hidden={
-                  (rolled1 &&
-                    rolled2 &&
-                    rolled3 &&
-                    rolled4 &&
-                    rolled5 &&
-                    rolled6) ||
-                  pauseGame
+                  rolled1 && rolled2 && rolled3 && rolled4 && rolled5 && rolled6
                 }
               >
                 Roll dice
@@ -1200,7 +1220,6 @@ export function FarkleGameBoard(props) {
                     ? false
                     : true
                 }
-                disabled={pauseGame}
               >
                 {lockDice === false ? "Lock Dice" : "Unlock Dice"}
               </button>
@@ -1220,7 +1239,6 @@ export function FarkleGameBoard(props) {
                     : handleNextRoll
                 }
                 hidden={nextRollLocked}
-                disabled={pauseGame}
               >
                 {currentHeldDiceCount() < heldDiceCount ||
                 currentHeldDiceCount() === heldDiceCount
@@ -1231,9 +1249,8 @@ export function FarkleGameBoard(props) {
               </button>
               <button
                 id="end-turn-button"
-                class={pauseGame ? buttonStyleDisabledSM : buttonStyleSM}
+                class={buttonStyleSM}
                 onClick={rollScore === undefined ? handleFarkle : handleEndTurn}
-                disabled={pauseGame}
                 hidden={
                   currentHeldDiceCount() < heldDiceCount ||
                   currentHeldDiceCount() === heldDiceCount

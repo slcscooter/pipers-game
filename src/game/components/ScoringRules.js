@@ -1,55 +1,444 @@
-export function ScoringRules(props) {
-  return (
-    <>
-      <img
-        id="farkle-rules"
-        class="h-96 w-96 rounded-lg"
-        src="https://www.ultraboardgames.com/farkle/gfx/nano1.jpg"
-        alt="explanation of rules"
-        hidden={props.hideRules}
-      />
-    </>
-  );
-}
+import { flexCol, flexRow } from "../game.css";
+import {
+  rollImage1,
+  rollImage2,
+  rollImage3,
+  rollImage4,
+  rollImage5,
+  rollImage6,
+} from "../refs/imageRefs";
 
 export function ScoringRulesRefined(props) {
   return (
     <>
-      <div id="farkle-rules" class={props.flexCol}>
-        <div id="simple-score" class={props.flexRow}>
-          <p>DiceImage1 = 100</p>
-          <p>DiceImage5 = 50 </p>
-        </div>
-        <div id="combo-scores" class={props.flexRow}>
-          <div id="set-of-3-combo-scores" class={props.flexCol}>
-            <p>1, 1, 1 = 300</p>
-            <p>2, 2, 2 = 200</p>
-            <p>3, 3, 3 = 300</p>
-            <p>4, 4, 4 = 400</p>
-            <p>5, 5, 5 = 500</p>
-            <p>6, 6, 6 = 600</p>
+      <div id="farkle-rules">
+        <div id="farkle-content">
+          <div id="farkle-rules-header">
+            <p id="farkle-rules-title">Farkle Rules</p>
           </div>
-          <div id="combo-scores" class={props.flexCol}>
-            <p>Any 4 of the same dice = 1000</p>
-            <p>Any 5 of the same dice = 2000</p>
-            <p>6 of the same dice = 1500</p>
-            <p>1-6 Straight = 1500</p>
-            <p>3 sets of Pairs = 1500</p>
-            <p>4 of the same dice, and a Pair = 150</p>
-            <p>2 sets of Triplets = 2500</p>
+          <div
+            id="farkle-rules-body"
+            class={flexCol + " content-center items-center justify-center"}
+          >
+            <div id="simple-score" class={flexRow}>
+              <div id="single-dice-value-1-points" class={flexRow}>
+                <img
+                  id="dice-image-1"
+                  class="h-12 w-12"
+                  src={rollImage1}
+                  alt="Dice Value 1"
+                />
+                <div class={flexCol}>
+                  <div> </div>
+                  <p class="content-center items-center justify-center">
+                    = 100
+                  </p>
+                </div>
+              </div>
+              <div id="single-dice-value-5-points" class={flexRow}>
+                <img
+                  id="dice-image-5"
+                  class="h-12 w-12"
+                  src={rollImage1}
+                  alt="Dice Value 5"
+                />
+                <div class={flexCol}>
+                  <div> </div>
+                  <p class="content-center items-center justify-center">= 50</p>
+                </div>
+              </div>
+            </div>
+            <div id="combo-scores" class={flexRow}>
+              <div id="set-of-3-combo-scores" class={flexCol}>
+                <div id="triple-combo-value-1-points" class={flexRow}>
+                  <img
+                    id="dice-image-1a"
+                    class="h-12 w-12"
+                    src={rollImage1}
+                    alt="Dice Value 1"
+                  />
+                  <img
+                    id="dice-image-1b"
+                    class="h-12 w-12"
+                    src={rollImage1}
+                    alt="Dice Value 1"
+                  />
+                  <img
+                    id="dice-image-1c"
+                    class="h-12 w-12"
+                    src={rollImage1}
+                    alt="Dice Value 1"
+                  />
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      = 300
+                    </p>
+                  </div>
+                </div>
+                <div id="triple-combo-value-2-points" class={flexRow}>
+                  <img
+                    id="dice-image-2a"
+                    class="h-12 w-12"
+                    src={rollImage2}
+                    alt="Dice Value 2"
+                  />
+                  <img
+                    id="dice-image-2b"
+                    class="h-12 w-12"
+                    src={rollImage2}
+                    alt="Dice Value 2"
+                  />
+                  <img
+                    id="dice-image-2c"
+                    class="h-12 w-12"
+                    src={rollImage2}
+                    alt="Dice Value 2"
+                  />
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      = 200
+                    </p>
+                  </div>
+                </div>
+                <div id="triple-combo-value-3-points" class={flexRow}>
+                  <img
+                    id="dice-image-3a"
+                    class="h-12 w-12"
+                    src={rollImage3}
+                    alt="Dice Value 3"
+                  />
+                  <img
+                    id="dice-image-3b"
+                    class="h-12 w-12"
+                    src={rollImage3}
+                    alt="Dice Value 3"
+                  />
+                  <img
+                    id="dice-image-3c"
+                    class="h-12 w-12"
+                    src={rollImage3}
+                    alt="Dice Value 3"
+                  />
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      = 300
+                    </p>
+                  </div>
+                </div>
+                <div id="triple-combo-value-4-points" class={flexRow}>
+                  <img
+                    id="dice-image-4a"
+                    class="h-12 w-12"
+                    src={rollImage4}
+                    alt="Dice Value 4"
+                  />
+                  <img
+                    id="dice-image-4b"
+                    class="h-12 w-12"
+                    src={rollImage4}
+                    alt="Dice Value 4"
+                  />
+                  <img
+                    id="dice-image-4c"
+                    class="h-12 w-12"
+                    src={rollImage4}
+                    alt="Dice Value 4"
+                  />
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      = 400
+                    </p>
+                  </div>
+                </div>
+                <div id="triple-combo-value-5-points" class={flexRow}>
+                  <img
+                    id="dice-image-5a"
+                    class="h-12 w-12"
+                    src={rollImage1}
+                    alt="Dice Value 5"
+                  />
+                  <img
+                    id="dice-image-5b"
+                    class="h-12 w-12"
+                    src={rollImage5}
+                    alt="Dice Value 5"
+                  />
+                  <img
+                    id="dice-image-5c"
+                    class="h-12 w-12"
+                    src={rollImage5}
+                    alt="Dice Value 5"
+                  />
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      = 500
+                    </p>
+                  </div>
+                </div>
+                <div id="triple-combo-value-6-points" class={flexRow}>
+                  <img
+                    id="dice-image-6a"
+                    class="h-12 w-12"
+                    src={rollImage6}
+                    alt="Dice Value 6"
+                  />
+                  <img
+                    id="dice-image-6b"
+                    class="h-12 w-12"
+                    src={rollImage6}
+                    alt="Dice Value 6"
+                  />
+                  <img
+                    id="dice-image-6c"
+                    class="h-12 w-12"
+                    src={rollImage6}
+                    alt="Dice Value 6"
+                  />
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      = 600
+                    </p>
+                  </div>
+                </div>
+                <div id="4-combo-same-dice-value-points" class={flexRow}>
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      Any 4
+                    </p>
+                  </div>
+                  <img
+                    id="dice-image-4d"
+                    class="h-12 w-12"
+                    src={rollImage4}
+                    alt="Dice Value 4"
+                  />
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      = 1000
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div id="combo-scores" class={flexCol}>
+                <div id="5-combo-same-dice-value-points" class={flexRow}>
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      Any 5
+                    </p>
+                  </div>
+                  <img
+                    id="dice-image-5d"
+                    class="h-12 w-12"
+                    src={rollImage5}
+                    alt="Dice Value 5"
+                  />
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      = 2000
+                    </p>
+                  </div>
+                </div>
+                <div id="6-combo-same-dice-value-points" class={flexRow}>
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      Any 6
+                    </p>
+                  </div>
+                  <img
+                    id="dice-image-6d"
+                    class="h-12 w-12"
+                    src={rollImage6}
+                    alt="Dice Value 6"
+                  />
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      = 3000
+                    </p>
+                  </div>
+                </div>
+                <div id="1-6-dice-value-points" class={flexRow}>
+                  <div class={flexCol}>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      1-6
+                    </p>
+                  </div>
+                  <div class={flexCol}>
+                    <div class={flexRow}>
+                      <img
+                        id="dice-image-1f"
+                        class="h-12 w-12"
+                        src={rollImage1}
+                        alt="Dice Value 1"
+                      />
+                      <img
+                        id="dice-image-2e"
+                        class="h-12 w-12"
+                        src={rollImage2}
+                        alt="Dice Value 2"
+                      />
+                      <img
+                        id="dice-image-3e"
+                        class="h-12 w-12"
+                        src={rollImage3}
+                        alt="Dice Value 3"
+                      />
+                    </div>
+                    <div class={flexRow}>
+                      <img
+                        id="dice-image-4e"
+                        class="h-12 w-12"
+                        src={rollImage4}
+                        alt="Dice Value 4"
+                      />
+                      <img
+                        id="dice-image-5e"
+                        class="h-12 w-12"
+                        src={rollImage5}
+                        alt="Dice Value 5"
+                      />
+                      <img
+                        id="dice-image-6e"
+                        class="h-12 w-12"
+                        src={rollImage6}
+                        alt="Dice Value 6"
+                      />
+                    </div>
+                  </div>
+                  <div class={flexCol}>
+                    <div> </div>
+                    <div> </div>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      = 1500
+                    </p>
+                  </div>
+                </div>
+                <div
+                  id="4-dice-single=plus-pair-dice-value-points"
+                  class={flexRow}
+                >
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      Any 4
+                    </p>
+                  </div>
+                  <img
+                    id="dice-image-2d"
+                    class="h-12 w-12"
+                    src={rollImage2}
+                    alt="Dice Value 2"
+                  />
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      {` + a pair`}
+                    </p>
+                  </div>
+                  <img
+                    id="dice-image-3d"
+                    class="h-12 w-12"
+                    src={rollImage3}
+                    alt="Dice Value 3"
+                  />
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      = 1500
+                    </p>
+                  </div>
+                </div>
+                <div id="3-pairs-dice-value-points" class={flexRow}>
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      3 Pairs
+                    </p>
+                  </div>
+                  <img
+                    id="dice-image-1d"
+                    class="h-12 w-12"
+                    src={rollImage1}
+                    alt="Dice Value 1"
+                  />
+                  <img
+                    id="dice-image-1e"
+                    class="h-12 w-12"
+                    src={rollImage1}
+                    alt="Dice Value 1"
+                  />
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      = 1500
+                    </p>
+                  </div>
+                </div>
+                <div id="2-triples-dice-value-points" class={flexRow}>
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      3 Triples
+                    </p>
+                  </div>
+                  <img
+                    id="dice-image-1i"
+                    class="h-12 w-12"
+                    src={rollImage1}
+                    alt="Dice Value 1"
+                  />
+                  <img
+                    id="dice-image-1g"
+                    class="h-12 w-12"
+                    src={rollImage1}
+                    alt="Dice Value 1"
+                  />
+                  <img
+                    id="dice-image-1h"
+                    class="h-12 w-12"
+                    src={rollImage1}
+                    alt="Dice Value 1"
+                  />
+                  <div class={flexCol}>
+                    <div> </div>
+                    <p class="content-center items-center justify-center">
+                      = 2500
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              id="advanced-scoring"
+              class={flexCol + " content-left items-left justify-left"}
+            >
+              <p class="content-left items-left justify-left max-w-xl">
+                A turn begins by rolling all six dice. You must hold at least 1
+                scorable dice per roll. If you can bank all 6 dice, you can
+                continue to roll and stackscore. If you cannot hold a dice, you
+                have FARKLED! A FARKLE! causes you to lose accumulated score
+                during your turn, and end your turn. You may end your turn at
+                anytime which will bank your accumulated score. To win the game
+                you must pass a score of 10,000 pts. The first person to score
+                10,000 pts wins.
+              </p>
+            </div>
           </div>
-        </div>
-        <div id="advanced-scoring">
-          <p>A turn begins by rolling all six dice.</p>
-          <p>You must hold at least 1 scorable dice</p>
-          <p>per roll. If you can bank all 6 dice, you</p>
-          <p>can continue to roll and stackscore. If</p>
-          <p>you cannot hold a dice, you have FARKLED!</p>
-          <p>A FARKLE! causes you to lose accumulated</p>
-          <p>score during your turn, and end your turn.</p>
-          <p>You may end your turn at anytime which will</p>
-          <p>bank your accumulated score. To win the</p>
-          <p>game you must pass a score of 10,000 pts.</p>
         </div>
       </div>
     </>

@@ -2,7 +2,7 @@ export function Dice(props) {
   return (
     <div id={`dice-${props.diceNumber}`} class={props.flexCol}>
       <img
-        id={`dice-image--${props.diceNumber}`}
+        id={`dice-image-${props.diceNumber}`}
         class={props.diceImage}
         src={props.imageSource}
         alt={props.altSource}
@@ -25,9 +25,7 @@ export function Dice(props) {
           }
           hidden={props.diceValue === "Roll"}
           disabled={
-            props.lockDice === true ||
-            props.rollCount > props.heldDiceRoll ||
-            props.pauseGame
+            props.lockDice === true || props.rollCount > props.heldDiceRoll
           }
         >
           {props.heldDice === false ? "Hold" : "Unhold"}
