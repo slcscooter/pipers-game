@@ -12,3 +12,28 @@ export const rollImage2 =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Dice-2.svg/240px-Dice-2.svg.png";
 export const rollImage1 =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Dice-1.svg/240px-Dice-1.svg.png";
+
+export function DiceImage(props) {
+  return (
+    <>
+      <img
+        id={`dice-image-${props.dice}`}
+        class="h-8 w-8"
+        src={
+          props.dice === 1
+            ? rollImage1
+            : props.dice === 2
+            ? rollImage2
+            : props.dice === 3
+            ? rollImage3
+            : props.dice === 4
+            ? rollImage4
+            : props.dice === 5
+            ? rollImage5
+            : rollImage6
+        }
+        alt={`Dice value is ${props.dice}`}
+      />
+    </>
+  );
+}

@@ -1,12 +1,10 @@
 import { FarkleGameBoard } from "./game/Farkle";
+import { app } from "./game/game.css";
 
 function App() {
   return (
-    <div id="App" class="text-center">
-      <header
-        id="App-header"
-        class="bg-white min-h-screen flex flex-col items-center justify-center text-black"
-      >
+    <div id="app" class="text-center">
+      <header id="app-header" class={app}>
         <FarkleGameBoard />
       </header>
     </div>
