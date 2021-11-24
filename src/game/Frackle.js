@@ -9,6 +9,7 @@ import {
   buttonStyleDisabledSM,
   buttonStyleSM,
   diceImage,
+  centeredFlexCol,
 } from "./game.css";
 import {
   rollImage,
@@ -641,6 +642,9 @@ export function FrackleGameBoard() {
         d5 === 6 ||
         d6 === 6
       ) {
+        if (d1 === 6) {
+          return 4000;
+        }
         return 3000;
       }
 
@@ -685,6 +689,9 @@ export function FrackleGameBoard() {
           d6 === 2) &&
         (d1 === 4 || d2 === 4 || d3 === 4 || d4 === 4 || d5 === 4 || d6 === 4)
       ) {
+        if (d1 === 4) {
+          return 2500;
+        }
         return 1500;
       }
 
@@ -698,6 +705,9 @@ export function FrackleGameBoard() {
           d6 === 3) &&
         (d1 === 3 || d2 === 3 || d3 === 3 || d4 === 3 || d5 === 3 || d6 === 3)
       ) {
+        if (d1 === 3) {
+          return 3500;
+        }
         return 2500;
       }
 
@@ -714,6 +724,9 @@ export function FrackleGameBoard() {
         (d1 === 5 || d2 === 5 || d3 === 5 || d4 === 5 || d6 === 5) &&
         d5 === 1
       ) {
+        if (d1 === 5) {
+          return 3050;
+        }
         return 2050;
       }
 
@@ -754,13 +767,29 @@ export function FrackleGameBoard() {
       ) {
         if (d2 === 3) {
           return 400;
-        } else if (d3 === 3) {
+        }
+        if (d3 === 3) {
           return 500;
-        } else if (d4 === 3) {
+        }
+        if (d4 === 3) {
           return 600;
-        } else if (d6 === 3) {
+        }
+        if (d6 === 3) {
           return 800;
         }
+      }
+
+      // [1,2,3,4,5,5] or [2,3,4,5,6,5] = 1050
+      if (
+        (d1 === 1 && d2 === 1 && d3 === 1 && d4 === 1 && d5 === 2) ||
+        (d2 === 1 && d3 === 1 && d4 === 1 && d5 === 2 && d6 === 1)
+      ) {
+        return 1050;
+      }
+
+      // [1,2,3,4,5,1] = 1100
+      if (d1 === 2 && d2 === 1 && d3 === 1 && d4 === 1 && d5 === 1) {
+        return 1100;
       }
     }
 
@@ -774,12 +803,23 @@ export function FrackleGameBoard() {
         d5 === 5 ||
         d6 === 5
       ) {
+        if (d1 === 5) {
+          return 3000;
+        }
         return 2000;
+      }
+
+      // [1,2,3,4,5] or [2,3,4,5,6] = 1000
+      if (
+        (d1 === 1 && d2 === 1 && d3 === 1 && d4 === 1 && d5 === 1) ||
+        (d2 === 1 && d3 === 1 && d4 === 1 && d5 === 1 && d6 === 1)
+      ) {
+        return 1000;
       }
 
       // [x,x,x,x,1] = 1100 (example: [6,6,6,1,6] = 1100) note that x !== 1
       if (
-        (d2 === 5 || d3 === 5 || d4 === 5 || d5 === 5 || d6 === 5) &&
+        (d2 === 4 || d3 === 4 || d4 === 4 || d5 === 4 || d6 === 4) &&
         d1 === 1
       ) {
         return 1100;
@@ -787,9 +827,12 @@ export function FrackleGameBoard() {
 
       // [x,x,x,x,5] = 1050 (example: [6,6,6,5,6] = 1050) note that x !== 5
       if (
-        (d1 === 5 || d2 === 5 || d3 === 5 || d4 === 5 || d6 === 5) &&
+        (d1 === 4 || d2 === 4 || d3 === 4 || d4 === 4 || d6 === 4) &&
         d5 === 1
       ) {
+        if (d1 === 4) {
+          return 2050;
+        }
         return 1050;
       }
 
@@ -841,7 +884,7 @@ export function FrackleGameBoard() {
         d5 === 2
       ) {
         if (d1 === 3) {
-          return 400;
+          return 1100;
         }
         if (d2 === 3) {
           return 300;
@@ -868,6 +911,9 @@ export function FrackleGameBoard() {
         d5 === 4 ||
         d6 === 4
       ) {
+        if (d1 === 4) {
+          return 2000;
+        }
         return 1000;
       }
 
@@ -899,7 +945,7 @@ export function FrackleGameBoard() {
         d5 === 1
       ) {
         if (d1 === 3) {
-          return 350;
+          return 1050;
         }
         if (d2 === 3) {
           return 250;
@@ -922,7 +968,7 @@ export function FrackleGameBoard() {
     }
 
     if (bankedDiceCount === 3) {
-      // [x,x,x] = x * 100 except [1,1,1] = 300 (example: [1,3,5,3,3,1] = 300)
+      // [x,x,x] = x * 100 except [1,1,1] = 1000 (example: [2,3,2,3,3,4] = 300)
       if (
         d1 === 3 ||
         d2 === 3 ||
@@ -932,7 +978,7 @@ export function FrackleGameBoard() {
         d6 === 3
       ) {
         if (d1 === 3) {
-          return 300;
+          return 1000;
         }
         if (d2 === 3) {
           return 200;
@@ -1020,10 +1066,13 @@ export function FrackleGameBoard() {
       if (player1Score >= 10000) {
         return "Player 1";
       }
+
       if (player2Score >= 10000) {
         return "Player 2";
       }
-    } else if (player1Score >= 10000) {
+    }
+
+    if (player1Score >= 10000) {
       return "Player 1";
     }
   };
@@ -1064,7 +1113,8 @@ export function FrackleGameBoard() {
         </div>
       </>
     );
-  } else if (!hideRules) {
+  }
+  if (!hideRules) {
     return (
       <>
         <div id="rules-container" class={flexCol}>
@@ -1075,15 +1125,12 @@ export function FrackleGameBoard() {
           >
             Close Rules
           </button>
-          <ScoringRulesRefined
-            flexRow={flexRow}
-            flexCol={flexCol}
-            buttonStyle={buttonStyle}
-          />
+          <ScoringRulesRefined />
         </div>
       </>
     );
-  } else if (player1Score >= 10000 || player2Score >= 10000) {
+  }
+  if (player1Score >= 10000 || player2Score >= 10000) {
     return (
       <>
         <WinnerDeclaration />
@@ -1129,10 +1176,7 @@ export function FrackleGameBoard() {
             Pause game
           </button>
         </div>
-        <div
-          id="gameboard-container"
-          class={flexCol + " items-center content-center justify-center"}
-        >
+        <div id="gameboard-container" class={centeredFlexCol}>
           <div id="dice-container-1" class={flexRow}>
             <Dice
               diceNumber={1}
@@ -1255,7 +1299,7 @@ export function FrackleGameBoard() {
             <RollScore />
             <BankedScore />
             <p id="turn-player-roll-text">
-              Turn: {turnCount}, Player: {player}, Roll: {rollCount}
+              Player: {player}, Turn: {turnCount}, Roll: {rollCount}
             </p>
             <button
               id="lock-dice-button"
