@@ -1,6 +1,6 @@
 {
-  "short_name": "Farkle Game",
-  "name": "Farkle in react",
+  "short_name": "Frackle Game",
+  "name": "A farkle based game in react",
   "icons": [
     {
       "src": "favicon.ico",

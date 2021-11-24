@@ -7,17 +7,17 @@ import {
 } from "../game.css";
 import { DiceImage } from "../refs/imageRefs";
 
-export function ScoringRulesRefined(props) {
+export function ScoringRulesRefined() {
   return (
     <>
-      <div id="farkle-rules">
-        <div id="farkle-content">
-          <div id="farkle-rules-header">
-            <p id="farkle-rules-title" class="text-4xl mb-4">
-              Farkle Rules
+      <div id="frackle-rules">
+        <div id="frackle-content">
+          <div id="frackle-rules-header">
+            <p id="frackle-rules-title" class="text-4xl mb-4">
+              Frackle Rules
             </p>
           </div>
-          <div id="farkle-rules-body" class={centeredFlexCol}>
+          <div id="frackle-rules-body" class={centeredFlexCol}>
             <div id="combo-scores" class={flexRow}>
               <div id="set-of-3-combo-scores" class={centeredFlexCol}>
                 <div id="single-dice-value-1-points" class={flexRow}>
@@ -109,9 +109,35 @@ export function ScoringRulesRefined(props) {
                     <p class={centered}>= 3000</p>
                   </div>
                 </div>
-                <div id="1-6-dice-value-points" class={flexRow}>
+                <div id="small-straight-dice-value-points" class={flexRow}>
                   <div class={centeredFlexCol}>
-                    <p class={centered}>1-6</p>
+                    <p class={centered + " text-sm"}>(1-5)</p>
+                    <p class={centered}>Small straight</p>
+                    <p class={centered + " text-sm"}>(2-6)</p>
+                  </div>
+                  <div class={centeredFlexCol}>
+                    <div class={flexRow}>
+                      <DiceImage dice={1} />
+                      <DiceImage dice={2} />
+                      <DiceImage dice={3} />
+                      <DiceImage dice={4} />
+                      <DiceImage dice={5} />
+                    </div>
+                    <div class={flexRow}>
+                      <DiceImage dice={2} />
+                      <DiceImage dice={3} />
+                      <DiceImage dice={4} />
+                      <DiceImage dice={5} />
+                      <DiceImage dice={6} />
+                    </div>
+                  </div>
+                  <div class={centeredFlexCol}>
+                    <p class={centered}>= 1000</p>
+                  </div>
+                </div>
+                <div id="large-straight-dice-value-points" class={flexRow}>
+                  <div class={centeredFlexCol}>
+                    <p class={centered}>Large straight</p>
                   </div>
                   <div class={flexCol}>
                     <div class={flexRow}>
@@ -173,7 +199,7 @@ export function ScoringRulesRefined(props) {
                 A turn begins by rolling all six dice. You must hold at least 1
                 scorable dice per roll. If you can bank all 6 dice, you can
                 continue to roll and stackscore. If you cannot hold a dice, you
-                have FARKLED! A FARKLE! causes you to lose accumulated score
+                have FRACKLED! A FRACKLE! causes you to lose accumulated score
                 during your turn, and end your turn. You may end your turn at
                 anytime which will bank your accumulated score. To win the game
                 you must pass a score of 10,000 pts. The first person to score
