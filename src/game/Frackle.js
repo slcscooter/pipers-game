@@ -643,7 +643,7 @@ export function FrackleGameBoard() {
         d6 === 6
       ) {
         if (d1 === 6) {
-          return 4000;
+          return 5000;
         }
         return 3000;
       }
@@ -1082,7 +1082,7 @@ export function FrackleGameBoard() {
       <div id="game" class={flexCol}>
         <div id="winner-declaration-container">
           <p id="winner-declaration-text" class="text-8xl">
-            {winnerDeclaration} has won the game!
+            {winnerDeclaration()} has won the game!
           </p>
         </div>
         <div id="game-level-controls" class={flexRow}>
@@ -1114,6 +1114,7 @@ export function FrackleGameBoard() {
       </>
     );
   }
+
   if (!hideRules) {
     return (
       <>
@@ -1130,6 +1131,7 @@ export function FrackleGameBoard() {
       </>
     );
   }
+
   if (player1Score >= 10000 || player2Score >= 10000) {
     return (
       <>

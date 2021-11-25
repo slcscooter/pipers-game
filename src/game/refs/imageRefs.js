@@ -18,7 +18,7 @@ export function DiceImage(props) {
     <>
       <img
         id={`dice-image-${props.dice}`}
-        class="h-8 w-8"
+        class="h-7 w-7"
         src={
           props.dice === 1
             ? rollImage1

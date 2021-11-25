@@ -18,14 +18,22 @@ export function ScoringRulesRefined() {
             </p>
           </div>
           <div id="frackle-rules-body" class={centeredFlexCol}>
-            <div id="combo-scores" class={flexRow}>
-              <div id="set-of-3-combo-scores" class={centeredFlexCol}>
-                <div id="single-dice-value-1-points" class={flexRow}>
-                  <DiceImage dice={1} />
-                  <div class={centeredFlexCol}>
-                    <p class={centered}>= 100</p>
-                  </div>
+            <div id="single-dice-values" class={flexRow + " m-0.5"}>
+              <div id="single-dice-value-1-points" class={flexRow}>
+                <DiceImage dice={1} />
+                <div class={centeredFlexCol}>
+                  <p class={centered}>= 100</p>
                 </div>
+              </div>
+              <div id="single-dice-value-5-points" class={flexRow}>
+                <DiceImage dice={5} />
+                <div class={centeredFlexCol}>
+                  <p class={centered}>= 50</p>
+                </div>
+              </div>
+            </div>
+            <div id="combo-scores-container" class={flexRow + " m-0.5"}>
+              <div id="set-of-3-combo-scores" class={centeredFlexCol}>
                 <div id="triple-combo-value-1-points" class={flexRow}>
                   <DiceImage dice={1} />
                   <DiceImage dice={1} />
@@ -74,6 +82,35 @@ export function ScoringRulesRefined() {
                     <p class={centered}>= 600</p>
                   </div>
                 </div>
+                <div id="4-1-combos--dice-value-points" class={flexRow}>
+                  <div class={centeredFlexCol}>
+                    <p class={centered}>4</p>
+                  </div>
+                  <DiceImage dice={1} />
+                  <div class={centeredFlexCol}>
+                    <p class={centered}>= 2000</p>
+                  </div>
+                </div>
+                <div id="5-1-combo-dice-value-points" class={flexRow}>
+                  <div class={centeredFlexCol}>
+                    <p class={centered}>5</p>
+                  </div>
+                  <DiceImage dice={1} />
+                  <div class={centeredFlexCol}>
+                    <p class={centered}>= 3000</p>
+                  </div>
+                </div>
+                <div id="6-1-combo-dice-value-points" class={flexRow}>
+                  <div class={centeredFlexCol}>
+                    <p class={centered}>6</p>
+                  </div>
+                  <DiceImage dice={1} />
+                  <div class={centeredFlexCol}>
+                    <p class={centered}>= 5000</p>
+                  </div>
+                </div>
+              </div>
+              <div id="combo-scores" class={centeredFlexCol}>
                 <div id="4-combo-same-dice-value-points" class={flexRow}>
                   <div class={centeredFlexCol}>
                     <p class={centered}>Any 4</p>
@@ -81,14 +118,6 @@ export function ScoringRulesRefined() {
                   <DiceImage dice={4} />
                   <div class={centeredFlexCol}>
                     <p class={centered}>= 1000</p>
-                  </div>
-                </div>
-              </div>
-              <div id="combo-scores" class={centeredFlexCol}>
-                <div id="single-dice-value-5-points" class={flexRow}>
-                  <DiceImage dice={5} />
-                  <div class={centeredFlexCol}>
-                    <p class={centered}>= 50</p>
                   </div>
                 </div>
                 <div id="5-combo-same-dice-value-points" class={flexRow}>
@@ -111,24 +140,23 @@ export function ScoringRulesRefined() {
                 </div>
                 <div id="small-straight-dice-value-points" class={flexRow}>
                   <div class={centeredFlexCol}>
-                    <p class={centered + " text-sm"}>(1-5)</p>
-                    <p class={centered}>Small straight</p>
-                    <p class={centered + " text-sm"}>(2-6)</p>
+                    <p class={centered}>{`Straight `}</p>
+                    <p class={centered}>{`[1-5], [2-6]`}</p>
                   </div>
                   <div class={centeredFlexCol}>
                     <div class={flexRow}>
-                      <DiceImage dice={1} />
+                      <div class="opacity-50">
+                        <DiceImage dice={1} />
+                      </div>
                       <DiceImage dice={2} />
                       <DiceImage dice={3} />
-                      <DiceImage dice={4} />
-                      <DiceImage dice={5} />
                     </div>
                     <div class={flexRow}>
-                      <DiceImage dice={2} />
-                      <DiceImage dice={3} />
                       <DiceImage dice={4} />
                       <DiceImage dice={5} />
-                      <DiceImage dice={6} />
+                      <div class="opacity-50">
+                        <DiceImage dice={6} />
+                      </div>
                     </div>
                   </div>
                   <div class={centeredFlexCol}>
@@ -194,7 +222,11 @@ export function ScoringRulesRefined() {
                 </div>
               </div>
             </div>
-            <div id="advanced-scoring" class={leftFlexCol}>
+            <div id="advanced-scoring" class={leftFlexCol + " m-0.5"}>
+              <p class="text-left max-w-lg">
+                This is farkle with a twist. Some scores have changed, and you
+                don't need to bank to start. Just roll and hit 10,000 pts!.
+              </p>
               <p class="text-left max-w-lg">
                 A turn begins by rolling all six dice. You must hold at least 1
                 scorable dice per roll. If you can bank all 6 dice, you can
