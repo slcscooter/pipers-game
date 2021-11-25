@@ -1,11 +1,11 @@
-import { FarkleGameBoard } from "./game/Farkle";
+import { FrackleGameBoard } from "./game/Frackle";
 import { app } from "./game/game.css";
 
 function App() {
   return (
     <div id="app" class="text-center">
       <header id="app-header" class={app}>
-        <FarkleGameBoard />
+        <FrackleGameBoard />
       </header>
     </div>
   );

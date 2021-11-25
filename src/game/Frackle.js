@@ -9,6 +9,7 @@ import {
   buttonStyleDisabledSM,
   buttonStyleSM,
   diceImage,
+  centeredFlexCol,
 } from "./game.css";
 import {
   rollImage,
@@ -20,7 +21,7 @@ import {
   rollImage6,
 } from "./refs/imageRefs";
 
-export function FarkleGameBoard(props) {
+export function FrackleGameBoard() {
   /**
    * Dice Actions
    */
@@ -515,7 +516,7 @@ export function FarkleGameBoard(props) {
     setHeldDiceCount(0);
   }
 
-  function handleFarkle() {
+  function handleFrackle() {
     if (selectGame === "1v1") {
       if (player === "Player 1") {
         setPlayer("Player 2");
@@ -641,6 +642,9 @@ export function FarkleGameBoard(props) {
         d5 === 6 ||
         d6 === 6
       ) {
+        if (d1 === 6) {
+          return 5000;
+        }
         return 3000;
       }
 
@@ -685,6 +689,9 @@ export function FarkleGameBoard(props) {
           d6 === 2) &&
         (d1 === 4 || d2 === 4 || d3 === 4 || d4 === 4 || d5 === 4 || d6 === 4)
       ) {
+        if (d1 === 4) {
+          return 2500;
+        }
         return 1500;
       }
 
@@ -698,6 +705,9 @@ export function FarkleGameBoard(props) {
           d6 === 3) &&
         (d1 === 3 || d2 === 3 || d3 === 3 || d4 === 3 || d5 === 3 || d6 === 3)
       ) {
+        if (d1 === 3) {
+          return 3500;
+        }
         return 2500;
       }
 
@@ -714,6 +724,9 @@ export function FarkleGameBoard(props) {
         (d1 === 5 || d2 === 5 || d3 === 5 || d4 === 5 || d6 === 5) &&
         d5 === 1
       ) {
+        if (d1 === 5) {
+          return 3050;
+        }
         return 2050;
       }
 
@@ -754,13 +767,29 @@ export function FarkleGameBoard(props) {
       ) {
         if (d2 === 3) {
           return 400;
-        } else if (d3 === 3) {
+        }
+        if (d3 === 3) {
           return 500;
-        } else if (d4 === 3) {
+        }
+        if (d4 === 3) {
           return 600;
-        } else if (d6 === 3) {
+        }
+        if (d6 === 3) {
           return 800;
         }
+      }
+
+      // [1,2,3,4,5,5] or [2,3,4,5,6,5] = 1050
+      if (
+        (d1 === 1 && d2 === 1 && d3 === 1 && d4 === 1 && d5 === 2) ||
+        (d2 === 1 && d3 === 1 && d4 === 1 && d5 === 2 && d6 === 1)
+      ) {
+        return 1050;
+      }
+
+      // [1,2,3,4,5,1] = 1100
+      if (d1 === 2 && d2 === 1 && d3 === 1 && d4 === 1 && d5 === 1) {
+        return 1100;
       }
     }
 
@@ -774,12 +803,23 @@ export function FarkleGameBoard(props) {
         d5 === 5 ||
         d6 === 5
       ) {
+        if (d1 === 5) {
+          return 3000;
+        }
         return 2000;
+      }
+
+      // [1,2,3,4,5] or [2,3,4,5,6] = 1000
+      if (
+        (d1 === 1 && d2 === 1 && d3 === 1 && d4 === 1 && d5 === 1) ||
+        (d2 === 1 && d3 === 1 && d4 === 1 && d5 === 1 && d6 === 1)
+      ) {
+        return 1000;
       }
 
       // [x,x,x,x,1] = 1100 (example: [6,6,6,1,6] = 1100) note that x !== 1
       if (
-        (d2 === 5 || d3 === 5 || d4 === 5 || d5 === 5 || d6 === 5) &&
+        (d2 === 4 || d3 === 4 || d4 === 4 || d5 === 4 || d6 === 4) &&
         d1 === 1
       ) {
         return 1100;
@@ -787,9 +827,12 @@ export function FarkleGameBoard(props) {
 
       // [x,x,x,x,5] = 1050 (example: [6,6,6,5,6] = 1050) note that x !== 5
       if (
-        (d1 === 5 || d2 === 5 || d3 === 5 || d4 === 5 || d6 === 5) &&
+        (d1 === 4 || d2 === 4 || d3 === 4 || d4 === 4 || d6 === 4) &&
         d5 === 1
       ) {
+        if (d1 === 4) {
+          return 2050;
+        }
         return 1050;
       }
 
@@ -841,7 +884,7 @@ export function FarkleGameBoard(props) {
         d5 === 2
       ) {
         if (d1 === 3) {
-          return 400;
+          return 1100;
         }
         if (d2 === 3) {
           return 300;
@@ -868,6 +911,9 @@ export function FarkleGameBoard(props) {
         d5 === 4 ||
         d6 === 4
       ) {
+        if (d1 === 4) {
+          return 2000;
+        }
         return 1000;
       }
 
@@ -899,7 +945,7 @@ export function FarkleGameBoard(props) {
         d5 === 1
       ) {
         if (d1 === 3) {
-          return 350;
+          return 1050;
         }
         if (d2 === 3) {
           return 250;
@@ -922,7 +968,7 @@ export function FarkleGameBoard(props) {
     }
 
     if (bankedDiceCount === 3) {
-      // [x,x,x] = x * 100 except [1,1,1] = 300 (example: [1,3,5,3,3,1] = 300)
+      // [x,x,x] = x * 100 except [1,1,1] = 1000 (example: [2,3,2,3,3,4] = 300)
       if (
         d1 === 3 ||
         d2 === 3 ||
@@ -932,7 +978,7 @@ export function FarkleGameBoard(props) {
         d6 === 3
       ) {
         if (d1 === 3) {
-          return 300;
+          return 1000;
         }
         if (d2 === 3) {
           return 200;
@@ -1020,10 +1066,13 @@ export function FarkleGameBoard(props) {
       if (player1Score >= 10000) {
         return "Player 1";
       }
+
       if (player2Score >= 10000) {
         return "Player 2";
       }
-    } else if (player1Score >= 10000) {
+    }
+
+    if (player1Score >= 10000) {
       return "Player 1";
     }
   };
@@ -1033,7 +1082,7 @@ export function FarkleGameBoard(props) {
       <div id="game" class={flexCol}>
         <div id="winner-declaration-container">
           <p id="winner-declaration-text" class="text-8xl">
-            {winnerDeclaration} has won the game!
+            {winnerDeclaration()} has won the game!
           </p>
         </div>
         <div id="game-level-controls" class={flexRow}>
@@ -1064,7 +1113,9 @@ export function FarkleGameBoard(props) {
         </div>
       </>
     );
-  } else if (!hideRules) {
+  }
+
+  if (!hideRules) {
     return (
       <>
         <div id="rules-container" class={flexCol}>
@@ -1075,15 +1126,13 @@ export function FarkleGameBoard(props) {
           >
             Close Rules
           </button>
-          <ScoringRulesRefined
-            flexRow={flexRow}
-            flexCol={flexCol}
-            buttonStyle={buttonStyle}
-          />
+          <ScoringRulesRefined />
         </div>
       </>
     );
-  } else if (player1Score >= 10000 || player2Score >= 10000) {
+  }
+
+  if (player1Score >= 10000 || player2Score >= 10000) {
     return (
       <>
         <WinnerDeclaration />
@@ -1094,8 +1143,8 @@ export function FarkleGameBoard(props) {
       <div id="game" class={flexCol}>
         <p id="greeting" class="text-4xl">
           {selectGame === "1v1"
-            ? "Welcome to 2-player Farkle!"
-            : "Welcome to Solo Farkle"}
+            ? "Welcome to 2-player Frackle!"
+            : "Welcome to Solo Frackle"}
         </p>
         <div id="game-level-controls" class={flexRow}>
           <button
@@ -1129,10 +1178,7 @@ export function FarkleGameBoard(props) {
             Pause game
           </button>
         </div>
-        <div
-          id="gameboard-container"
-          class={flexCol + " items-center content-center justify-center"}
-        >
+        <div id="gameboard-container" class={centeredFlexCol}>
           <div id="dice-container-1" class={flexRow}>
             <Dice
               diceNumber={1}
@@ -1255,7 +1301,7 @@ export function FarkleGameBoard(props) {
             <RollScore />
             <BankedScore />
             <p id="turn-player-roll-text">
-              Turn: {turnCount}, Player: {player}, Roll: {rollCount}
+              Player: {player}, Turn: {turnCount}, Roll: {rollCount}
             </p>
             <button
               id="lock-dice-button"
@@ -1284,7 +1330,7 @@ export function FarkleGameBoard(props) {
               onClick={
                 currentHeldDiceCount() < heldDiceCount ||
                 currentHeldDiceCount() === heldDiceCount
-                  ? handleFarkle
+                  ? handleFrackle
                   : currentHeldDiceCount() === 6 && rollScore >= 1
                   ? handleBankRoll
                   : handleNextRoll
@@ -1293,7 +1339,7 @@ export function FarkleGameBoard(props) {
             >
               {currentHeldDiceCount() < heldDiceCount ||
               currentHeldDiceCount() === heldDiceCount
-                ? "FARKLED!"
+                ? "FRACKLED!"
                 : currentHeldDiceCount() === 6 && rollScore >= 1
                 ? "Bank & Reset Dice"
                 : "Next roll"}
@@ -1301,13 +1347,13 @@ export function FarkleGameBoard(props) {
             <button
               id="end-turn-button"
               class={buttonStyleSM}
-              onClick={rollScore === undefined ? handleFarkle : handleEndTurn}
+              onClick={rollScore === undefined ? handleFrackle : handleEndTurn}
               hidden={
                 currentHeldDiceCount() < heldDiceCount ||
                 currentHeldDiceCount() === heldDiceCount
               }
             >
-              {rollScore === undefined ? "FARKLED!" : "End Turn"}
+              {rollScore === undefined ? "FRACKLED!" : "End Turn"}
             </button>
           </div>
           <div id="game-scores-container">
