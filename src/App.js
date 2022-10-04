@@ -1,11 +1,12 @@
-import { FrackleGameBoard } from "./game/Frackle";
-import { app } from "./game/game.css";
+import "./App.css";
+import React from "react";
+import { GameField } from "./components/GameField";
 
 function App() {
   return (
-    <div id="app" class="text-center">
-      <header id="app-header" class={app}>
-        <FrackleGameBoard />
+    <div className="App">
+      <header className="App-header">
+        <GameField />
       </header>
     </div>
   );
