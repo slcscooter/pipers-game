@@ -6,6 +6,11 @@ import redLogo from "./../assets/redLogo.svg";
 import { randomInt } from "../utilities/randomInteger";
 
 export function GameField() {
+  const [playingGame, setPlayingGame] = useState(true);
+
+  // NewGame Functions
+
+  // PlayingGame Functions
   const [question, setQuestion] = useState(1);
   const [score, setScore] = useState(0);
   const [bottomValue, setBottomValue] = useState(randomInt());
@@ -13,6 +18,13 @@ export function GameField() {
   const [userInput, setUserInput] = useState("");
   const [image, setImage] = useState(logo);
   const [answer, setAnswer] = useState(topValue + bottomValue);
+
+  const logoState =
+    question === 1 ? <p>Good luck!</p> : <p>You've got this!</p>;
+  const greenLogoState = image === greenLogo ? <p>Great job!</p> : logoState;
+  const redLogoState = <p>Incorrect answer, keep trying!</p>;
+
+  const answerPrompt = image === redLogo ? redLogoState : greenLogoState;
 
   function handleCorrectAnswer() {
     setQuestion(question + 1);
@@ -29,11 +41,6 @@ export function GameField() {
     setBottomValue(randomInt());
     setImage(redLogo);
     setUserInput((document.getElementById("user-input").value = ""));
-  }
-
-  function handleChange(event) {
-    setAnswer(topValue + bottomValue);
-    setUserInput(event.target.value);
   }
 
   function ReactLogo() {
@@ -56,84 +63,107 @@ export function GameField() {
   function QuestionCard() {
     return (
       <>
-        <p>{topValue}</p>
-        <p>+</p>
-        <p>{bottomValue}</p>
-        <p>=</p>
+        <p>
+          {topValue} + {bottomValue}
+        </p>
       </>
     );
   }
 
-  function AnswerForm() {
-    const logoState =
-      question === 1 ? <p>Good luck!</p> : <p>You've got this!</p>;
-    const greenLogoState = image === greenLogo ? <p>Great job!</p> : logoState;
-    const redLogoState = <p>Incorrect answer, keep trying!</p>;
+  function handleGameOverCorrectAnswer() {
+    setScore(score + 1);
+    setPlayingGame(false);
+  }
 
-    const answerPrompt = image === redLogo ? redLogoState : greenLogoState;
-
-    return (
-      <>
-        <input
-          type="text"
-          id="user-input"
-          name="user-input"
-          value={userInput}
-          onChange={handleChange}
-        />
-        {answerPrompt}
-        <button
-          onClick={
-            answer.toString() === userInput
-              ? handleCorrectAnswer
-              : handleIncorrectAnswer
-          }
-        >
-          Submit Answer
-        </button>
-      </>
-    );
+  function handleGameOverIncorrectAnswer() {
+    setPlayingGame(false);
   }
 
   class SubmitAnswerForm extends React.Component {
     constructor(props) {
       super(props);
-      this.state = { value: "" };
+      this.state = { value: userInput };
 
       this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
+      setAnswer(topValue + bottomValue);
       this.setState({ value: event.target.value });
-    }
-
-    handleSubmit(event) {
-      alert("A name was submitted: " + this.state.value);
-      event.preventDefault();
     }
 
     render() {
       return (
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-          <input type="submit" value="Submit" />
-        </form>
+        <>
+          <form
+            onSubmit={
+              answer >= 99
+                ? answer.toString() === this.state.value
+                  ? handleCorrectAnswer
+                  : handleIncorrectAnswer
+                : answer.toString() === this.state.value
+                ? handleGameOverCorrectAnswer
+                : handleGameOverIncorrectAnswer
+            }
+          >
+            <input
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+            <input type="submit" value="Submit Answer" />
+          </form>
+          {answerPrompt}
+        </>
       );
     }
   }
 
+  function PlayingGame() {
+    return (
+      <>
+        <ReactLogo />
+        <ProgressBar />
+        <QuestionCard />
+        <SubmitAnswerForm />
+      </>
+    );
+  }
+
+  // GameOver Functions
+  function handleStartNewGame() {
+    setQuestion(1);
+    setScore(0);
+    setBottomValue(randomInt());
+    setTopValue(randomInt());
+    setUserInput("");
+    setImage(logo);
+    setAnswer(topValue + bottomValue);
+  }
+
+  function GameOver() {
+    return (
+      <>
+        <p>Congratulations you did great!</p>
+        <p>Score: {score}</p>
+        <form onSubmit={handleStartNewGame}>
+          <input type="submit" value="Start New Game" />
+        </form>
+      </>
+    );
+  }
+
+  if (playingGame) {
+    return (
+      <>
+        <PlayingGame />
+      </>
+    );
+  }
+
   return (
     <>
-      <ReactLogo />
-      <ProgressBar />
-      <QuestionCard />
-      <AnswerForm />
-      <SubmitAnswerForm />
+      <GameOver />
     </>
   );
 }
