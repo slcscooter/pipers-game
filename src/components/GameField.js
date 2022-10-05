@@ -20,9 +20,14 @@ export function GameField() {
   const [answer, setAnswer] = useState(topValue + bottomValue);
 
   const logoState =
-    question === 1 ? <p>Good luck!</p> : <p>You've got this!</p>;
-  const greenLogoState = image === greenLogo ? <p>Great job!</p> : logoState;
-  const redLogoState = <p>Incorrect answer, keep trying!</p>;
+    question === 1 ? (
+      <p id="logo-state-good-luck">Good luck!</p>
+    ) : (
+      <p id="logo-state-got-this">You've got this!</p>
+    );
+  const greenLogoState =
+    image === greenLogo ? <p id="logo-state-great-job">Great job!</p> : logoState;
+  const redLogoState = <p id="logo-state-incorrect-answer">Incorrect answer, keep trying!</p>;
 
   const answerPrompt = image === redLogo ? redLogoState : greenLogoState;
 
@@ -32,7 +37,6 @@ export function GameField() {
     setTopValue(randomInt());
     setBottomValue(randomInt());
     setImage(greenLogo);
-    setUserInput((document.getElementById("user-input").value = ""));
   }
 
   function handleIncorrectAnswer() {
@@ -40,13 +44,12 @@ export function GameField() {
     setTopValue(randomInt());
     setBottomValue(randomInt());
     setImage(redLogo);
-    setUserInput((document.getElementById("user-input").value = ""));
   }
 
   function ReactLogo() {
     return (
       <>
-        <img src={image} className="App-logo" alt="logo" />
+        <img id="react-logo" src={image} className="App-logo" alt="logo" />
       </>
     );
   }
@@ -54,8 +57,8 @@ export function GameField() {
   function ProgressBar() {
     return (
       <>
-        <p>Question: {question}</p>
-        <p>Score: {score}</p>
+        <p id="progress-bar-question">Question: {question}</p>
+        <p id="progress-bar-score">Score: {score}</p>
       </>
     );
   }
@@ -63,9 +66,15 @@ export function GameField() {
   function QuestionCard() {
     return (
       <>
-        <p>
-          {topValue} + {bottomValue}
-        </p>
+        <form id="question-card">
+          <p id="question-card-top-value" value={topValue}>
+            {topValue}
+          </p>
+          <p>+</p>
+          <p id="question-card-bottom-value" value={bottomValue}>
+            {bottomValue}
+          </p>
+        </form>
       </>
     );
   }
@@ -96,8 +105,9 @@ export function GameField() {
       return (
         <>
           <form
+            id="submit-answer-form"
             onSubmit={
-              answer >= 99
+              answer <= 99
                 ? answer.toString() === this.state.value
                   ? handleCorrectAnswer
                   : handleIncorrectAnswer
@@ -107,11 +117,12 @@ export function GameField() {
             }
           >
             <input
+              id="submit-answer-form-input"
               type="text"
               value={this.state.value}
               onChange={this.handleChange}
             />
-            <input type="submit" value="Submit Answer" />
+            <input id="submit-answer-form-submit-answer" type="submit" value="Submit Answer" />
           </form>
           {answerPrompt}
         </>
@@ -144,10 +155,10 @@ export function GameField() {
   function GameOver() {
     return (
       <>
-        <p>Congratulations you did great!</p>
-        <p>Score: {score}</p>
-        <form onSubmit={handleStartNewGame}>
-          <input type="submit" value="Start New Game" />
+        <p id="game-over-congrats">Congratulations you did great!</p>
+        <p id="game-over-score">Score: {score}</p>
+        <form id="game-over-start-new-game-form" onSubmit={handleStartNewGame}>
+          <input id="game-over-start-new-game-submit" type="submit" value="Start New Game" />
         </form>
       </>
     );
