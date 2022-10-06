@@ -1,8 +1,8 @@
 import "./../App.css";
 import React, { useState } from "react";
-import greenLogo from "./../assets/greenLogo.svg";
+import greenLogo from "./../assets/green-thumb-up.svg";
 import logo from "./../assets/logo.svg";
-import redLogo from "./../assets/redLogo.svg";
+import redLogo from "./../assets/red-thumb-down.svg";
 import { randomInt } from "../utilities/randomInteger";
 
 export function GameField() {
@@ -47,9 +47,13 @@ export function GameField() {
   }
 
   function ReactLogo() {
-    return (
+    return image === logo ? (
       <>
         <img id="react-logo" src={image} className="App-logo" alt="logo" />
+      </>
+    ) : (
+      <>
+        <img id="react-logo" src={image} className="App-logo-no-spin" alt="logo" />
       </>
     );
   }
