@@ -57,8 +57,12 @@ export function GameField() {
   function ProgressBar() {
     return (
       <>
-        <p id="progress-bar-question">Question: {question}</p>
-        <p id="progress-bar-score">Score: {score}</p>
+        <p id="progress-bar-question" value={question}>
+          Question: {question}
+        </p>
+        <p id="progress-bar-score" value={score}>
+          Score: {score}
+        </p>
       </>
     );
   }
@@ -107,7 +111,7 @@ export function GameField() {
           <form
             id="submit-answer-form"
             onSubmit={
-              answer <= 99
+              question <= 99
                 ? answer.toString() === this.state.value
                   ? handleCorrectAnswer
                   : handleIncorrectAnswer
@@ -156,7 +160,9 @@ export function GameField() {
     return (
       <>
         <p id="game-over-congrats">Congratulations you did great!</p>
-        <p id="game-over-score">Score: {score}</p>
+        <p id="game-over-score" value={score}>
+          Score: {score}
+        </p>
         <form id="game-over-start-new-game-form" onSubmit={handleStartNewGame}>
           <input id="game-over-start-new-game-submit" type="submit" value="Start New Game" />
         </form>
