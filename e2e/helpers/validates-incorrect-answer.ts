@@ -43,5 +43,11 @@ export async function validatesIncorrectAnswer(driver: WebDriver): Promise<WebDr
   // validates incorrect answer was submitted
   await validatesElementByID(driver, `logo-state-incorrect-answer`);
 
+  // clicks next question
+  await clickElementByID(driver, `handle-answer-form-next-question`);
+
+  // validates next question populated
+  await validatesElementByID(driver, `submit-answer-form-submit-answer`);
+
   return driver;
 }

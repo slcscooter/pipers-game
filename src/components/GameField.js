@@ -8,8 +8,6 @@ import { randomInt } from "../utilities/randomInteger";
 export function GameField() {
   const [playingGame, setPlayingGame] = useState(true);
 
-  // NewGame Functions
-
   // PlayingGame Functions
   const [question, setQuestion] = useState(1);
   const [score, setScore] = useState(0);
@@ -18,6 +16,7 @@ export function GameField() {
   const [userInput, setUserInput] = useState("");
   const [image, setImage] = useState(logo);
   const [answer, setAnswer] = useState(topValue + bottomValue);
+  const [handleAnswer, setHandleAnswer] = useState(false);
 
   const logoState =
     question === 1 ? (
@@ -32,6 +31,7 @@ export function GameField() {
   const answerPrompt = image === redLogo ? redLogoState : greenLogoState;
 
   function handleCorrectAnswer() {
+    setHandleAnswer(true);
     setQuestion(question + 1);
     setScore(score + 1);
     setTopValue(randomInt());
@@ -40,6 +40,7 @@ export function GameField() {
   }
 
   function handleIncorrectAnswer() {
+    setHandleAnswer(true);
     setQuestion(question + 1);
     setTopValue(randomInt());
     setBottomValue(randomInt());
@@ -138,7 +139,40 @@ export function GameField() {
     }
   }
 
+  class HandleAnswerForm extends React.Component {
+    constructor(props) {
+      super(props);
+
+      this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit() {
+      setAnswer(topValue + bottomValue);
+      setHandleAnswer(false);
+    }
+
+    render() {
+      return (
+        <>
+          {answerPrompt}
+          <form id="handle-answer-form" onSubmit={this.handleSubmit}>
+            <input id="handle-answer-form-next-question" type="submit" value="Next Question!" />
+          </form>
+        </>
+      );
+    }
+  }
+
   function PlayingGame() {
+    if (handleAnswer) {
+      return (
+        <>
+          <ReactLogo />
+          <HandleAnswerForm />
+        </>
+      );
+    }
+
     return (
       <>
         <ReactLogo />
