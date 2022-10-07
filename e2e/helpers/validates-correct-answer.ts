@@ -22,13 +22,6 @@ export async function validatesCorrectAnswer(driver: WebDriver): Promise<WebDriv
 
   // enters the correct answer
   await clearInputTextByID(driver, `submit-answer-form-input`, answer.toString());
-  const inputCheck = await driver
-    .wait(until.elementLocated(By.id(`submit-answer-form-input`)), 5000)
-    .getAttribute(`value`);
-
-  if (inputCheck === "") {
-    await clearInputTextByID(driver, `submit-answer-form-input`, answer.toString());
-  }
 
   await validatesAttributeByID(driver, `submit-answer-form-input`, `value`, answer.toString());
 
