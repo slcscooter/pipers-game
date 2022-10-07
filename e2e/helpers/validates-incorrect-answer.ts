@@ -2,6 +2,7 @@ import { By, until, WebDriver } from "selenium-webdriver";
 import { clickElementByID } from "../components/clicks";
 import { clearInputTextByID, doubleClickInputTextByID } from "../components/inputs";
 import { validatesAttributeByID, validatesElementByID } from "../components/validators";
+import { nextQuestion } from "./next-question";
 
 export async function validatesIncorrectAnswer(driver: WebDriver): Promise<WebDriver> {
   // validates react logo exists
@@ -35,12 +36,7 @@ export async function validatesIncorrectAnswer(driver: WebDriver): Promise<WebDr
 
   // validates incorrect answer was submitted
   await validatesElementByID(driver, `logo-state-incorrect-answer`);
-
-  // clicks next question
-  await clickElementByID(driver, `handle-answer-form-next-question`);
-
-  // validates next question populated
-  await validatesElementByID(driver, `submit-answer-form-submit-answer`);
+  await nextQuestion(driver);
 
   return driver;
 }
