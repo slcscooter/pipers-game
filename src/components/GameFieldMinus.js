@@ -79,7 +79,7 @@ export function GameFieldMinus() {
           <p id="question-card-top-value" value={topValue}>
             {topValue}
           </p>
-          <p>-</p>
+          <p id="question-card-operator-minus">-</p>
           <p id="question-card-bottom-value" value={bottomValue}>
             {bottomValue}
           </p>

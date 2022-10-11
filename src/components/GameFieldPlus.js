@@ -79,7 +79,7 @@ export function GameFieldPlus() {
           <p id="question-card-top-value" value={topValue}>
             {topValue}
           </p>
-          <p>+</p>
+          <p id="question-card-operator-plus">+</p>
           <p id="question-card-bottom-value" value={bottomValue}>
             {bottomValue}
           </p>

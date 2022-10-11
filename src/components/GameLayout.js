@@ -11,7 +11,7 @@ export function GameLayout() {
   function GameFieldReturn() {
     return game === "PLUS" ? (
       <GameFieldPlus />
-    ) : game === "Minus" ? (
+    ) : game === "MINUS" ? (
       <GameFieldMinus />
     ) : (
       <GameFieldMultiply />
@@ -34,7 +34,7 @@ export function GameLayout() {
     function SelectGameMinus() {
       return (
         <>
-          <button id="select-game-plus-minus" onClick={onSubmitMinus}>
+          <button id="select-game-minus-button" onClick={onSubmitMinus}>
             - Subtraction
           </button>
         </>
@@ -44,7 +44,7 @@ export function GameLayout() {
     function SelectGameMultiply() {
       return (
         <>
-          <button id="select-game-plus-multiply" onClick={onSubmitMultiply}>
+          <button id="select-game-multiply-button" onClick={onSubmitMultiply}>
             X Multiplication
           </button>
         </>
@@ -65,7 +65,7 @@ export function GameLayout() {
       <>
         <Greeting />
         <SelectGamePlus />
-        {/* <SelectGameMinus /> */}
+        <SelectGameMinus />
         <SelectGameMultiply />
       </>
     );

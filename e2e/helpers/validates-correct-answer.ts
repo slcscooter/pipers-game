@@ -4,7 +4,7 @@ import { clearInputTextByID } from "../components/inputs";
 import { validatesAttributeByID, validatesElementByID } from "../components/validators";
 import { nextQuestion } from "./next-question";
 
-export async function validatesCorrectAnswer(driver: WebDriver): Promise<WebDriver> {
+export async function validatesCorrectAnswer(driver: WebDriver, game: string): Promise<WebDriver> {
   // validates react logo exists
   await validatesElementByID(driver, `react-logo`);
 
@@ -19,7 +19,13 @@ export async function validatesCorrectAnswer(driver: WebDriver): Promise<WebDriv
       .wait(until.elementLocated(By.id(`question-card-bottom-value`)), 5000)
       .getAttribute(`value`)
   );
-  const answer = topValue + bottomValue;
+
+  const answer =
+    game === "PLUS"
+      ? topValue + bottomValue
+      : game === "MULTIPLY"
+      ? topValue * bottomValue
+      : topValue - bottomValue;
 
   // enters the correct answer
   await clearInputTextByID(driver, `submit-answer-form-input`, answer.toString());

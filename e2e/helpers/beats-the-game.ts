@@ -4,106 +4,107 @@ import { clearInputTextByID } from "../components/inputs";
 import { validatesAttributeByID, validatesElementByID } from "../components/validators";
 import { validatesCorrectAnswer } from "./validates-correct-answer";
 
-export async function beatsTheGame(driver: WebDriver): Promise<WebDriver> {
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
-  await validatesCorrectAnswer(driver);
+export async function beatsTheGame(driver: WebDriver, game: string): Promise<WebDriver> {
+  const selectedGame = game === "PLUS" ? "PLUS" : "MULTIPLY";
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
+  await validatesCorrectAnswer(driver, selectedGame);
 
   // calculates the final answer
   const topValue = parseInt(
@@ -116,17 +117,16 @@ export async function beatsTheGame(driver: WebDriver): Promise<WebDriver> {
       .wait(until.elementLocated(By.id(`question-card-bottom-value`)), 5000)
       .getAttribute(`value`)
   );
-  const answer = topValue + bottomValue;
+
+  const answer =
+    game === "PLUS"
+      ? topValue + bottomValue
+      : game === "MULTIPLY"
+      ? topValue * bottomValue
+      : topValue - bottomValue;
 
   // enters the final correct answer
   await clearInputTextByID(driver, `submit-answer-form-input`, answer.toString());
-  const inputCheck = await driver
-    .wait(until.elementLocated(By.id(`submit-answer-form-input`)), 5000)
-    .getAttribute(`value`);
-
-  if (inputCheck === "") {
-    await clearInputTextByID(driver, `submit-answer-form-input`, answer.toString());
-  }
 
   await validatesAttributeByID(driver, `submit-answer-form-input`, `value`, answer.toString());
 

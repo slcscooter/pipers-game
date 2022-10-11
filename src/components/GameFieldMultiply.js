@@ -79,7 +79,7 @@ export function GameFieldMultiply() {
           <p id="question-card-top-value" value={topValue}>
             {topValue}
           </p>
-          <p>X</p>
+          <p id="question-card-operator-multiply">X</p>
           <p id="question-card-bottom-value" value={bottomValue}>
             {bottomValue}
           </p>

@@ -13,7 +13,7 @@ export async function navigateToGame(): Promise<WebDriver> {
   await driver.wait(until.urlContains(`${testEnvURL()}`));
 
   // validates react logo exists
-  await validatesElementByID(driver, `react-logo`);
+  await validatesElementByID(driver, `jennifers-game-greeting`);
 
   return driver;
 }
