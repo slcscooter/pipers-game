@@ -35,7 +35,7 @@ export function GameLayout() {
       return (
         <>
           <button id="select-game-plus-minus" onClick={onSubmitMinus}>
-            -
+            - Subtraction
           </button>
         </>
       );
@@ -45,7 +45,7 @@ export function GameLayout() {
       return (
         <>
           <button id="select-game-plus-multiply" onClick={onSubmitMultiply}>
-            X
+            X Multiplication
           </button>
         </>
       );
@@ -55,7 +55,7 @@ export function GameLayout() {
       return (
         <>
           <button id="select-game-plus-button" onClick={onSubmitPlus}>
-            +
+            + (Addition)
           </button>
         </>
       );
@@ -65,7 +65,7 @@ export function GameLayout() {
       <>
         <Greeting />
         <SelectGamePlus />
-        <SelectGameMinus />
+        {/* <SelectGameMinus /> */}
         <SelectGameMultiply />
       </>
     );

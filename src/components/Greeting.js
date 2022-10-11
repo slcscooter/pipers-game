@@ -4,8 +4,10 @@ import React from "react";
 export function Greeting() {
   return (
     <>
-      <p>Welcome to Piper's Game</p>
-      <p>Please select a Game!</p>
+      <div id="jennifers-game-greeting">
+        <p>Welcome to Jennifer's Math Game</p>
+        <p>Please select a game!</p>
+      </div>
     </>
   );
 }
